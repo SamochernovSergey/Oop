@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Range.RangeHardExample</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RangeExample.cs" />
+    <Compile Include="RangeHardExample.cs" />
     <Compile Include="RangeHard.cs" />
     <Compile Include="Range.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
