@@ -8,33 +8,6 @@ namespace Range
 {
     class Range
     {
-        static void Main(string[] args)
-        {
-            Range range1 = new Range(7.5, 12.3);
-            Range range2 = new Range(2.5, 9.1);
-            Range range3 = new Range(1.1, 20.3);
-
-            Console.WriteLine("Длина range1 = {0} Длина range2 = {1}", range1.GetLength(), range2.GetLength());
-
-            double number = 12;
-            Console.WriteLine("number = {0} принадлежит range1 {1}", number, range1.IsInside(number));
-            Console.WriteLine("number = {0} принадлежит range2 {1}", number, range2.IsInside(number));
-
-            Console.WriteLine("Результат пересечения отрезков {0} и {1} = {2}", range1.Print(), range2.Print(), range1.GetIntersection(range2).Print());
-
-            Console.WriteLine("Результат обьединения отрезков {0} и {1} : ", range1.Print(), range2.Print());
-            foreach (Range e in range1.GetAssociation(range2))
-            {
-                Console.WriteLine(e.Print());
-            }
-
-            Console.WriteLine("Результат разности отрезков {0} и {1} : ", range3.Print(), range2.Print());
-            foreach (Range e in range3.GetDifference(range2))
-            {
-                Console.WriteLine(e.Print());
-            }
-        }
-
         private double From
         {
             get;
@@ -63,25 +36,13 @@ namespace Range
             return To - From;
         }
 
-        public string Print()
+        public override string ToString()
         {
             return '(' + Convert.ToString(From) + ' ' + Convert.ToString(To) + ')';
         }
 
         public Range GetIntersection(Range range)
         {
-            if (From > To)
-            {
-                double temp = From;
-                From = To;
-                To = temp;
-            }
-            if (range.From > range.To)
-            {
-                double temp = range.From;
-                range.From = range.To;
-                range.To = temp;
-            }
             if (From > range.From)
             {
                 double temp = From;
@@ -95,19 +56,19 @@ namespace Range
             double begin = 0;
             double end = 0;
 
-            if (range.From >= From && To >= range.To)
+            if (To <= range.From)
             {
-                begin = range.From;
-                end = range.To;
+                return null;
             }
-            else if (range.From < To && To < range.To)
+            else if (To < range.To)
             {
                 begin = range.From;
                 end = To;
             }
             else
             {
-                return null;
+                begin = range.From;
+                end = range.To;
             }
 
             Range rangeIntersection = new Range(begin, end);
@@ -116,18 +77,6 @@ namespace Range
 
         public Range[] GetAssociation(Range range)
         {
-            if (From > To)
-            {
-                double temp = From;
-                From = To;
-                To = temp;
-            }
-            if (range.From > range.To)
-            {
-                double temp = range.From;
-                range.From = range.To;
-                range.To = temp;
-            }
             if (From > range.From)
             {
                 double temp = From;
@@ -143,16 +92,10 @@ namespace Range
             double begin2 = 0;
             double end2 = 0;
 
-            if (range.From >= From && To >= range.To)
+            if (To >= range.From)
             {
                 begin = From;
-                end = To;
-                return new Range[] { new Range(begin, end) };
-            }
-            else if (range.From < To && To < range.To)
-            {
-                begin = From;
-                end = range.To;                
+                end = range.To;
                 return new Range[] { new Range(begin, end) };
             }
             else
@@ -160,70 +103,47 @@ namespace Range
                 begin = From;
                 end = To;
                 begin2 = range.From;
-                end2 = range.To;                
+                end2 = range.To;
                 return new Range[] { new Range(begin, end), new Range(begin2, end2) };
             }
         }
 
         public Range[] GetDifference(Range range)
         {
-            if (From > To)
-            {
-                double temp = From;
-                From = To;
-                To = temp;
-            }
-            if (range.From > range.To)
-            {
-                double temp = range.From;
-                range.From = range.To;
-                range.To = temp;
-            }
-
             double begin = 0;
             double end = 0;
             double begin2 = 0;
             double end2 = 0;
 
-            if (To < range.From || range.To < From)
+                 if (From >= range.To || To <= range.From)
             {
                 begin = From;
                 end = To;
                 return new Range[] { new Range(begin, end) };
             }
-            else if (range.From > From && range.From < To)
+            else if (From >= range.From && To <= range.To)
             {
-                if (range.To >= To)
-                {
-                    begin = From;
-                    end = range.From;
-                    return new Range[] { new Range(begin, end) };
-                }
-                else
-                {
-                    begin = From;
-                    end = range.From;
-                    begin2 = range.To;
-                    end2 = To;                    
-                    return new Range[] { new Range(begin, end), new Range(begin2, end2) };
-                }
+                return new Range[] { };
+            }            
+            else if (From < range.From && To <= range.To)
+            {
+                begin = From;
+                end = range.From;
+                return new Range[] { new Range(begin, end) };
             }
-            else if (From == range.From && To == range.To)
+            else if (From >= range.From && To > range.To)
             {
-                return null;
+                begin = range.To;
+                end = To;
+                return new Range[] { new Range(begin, end) };
             }
             else
             {
-                if (To > range.To)
-                {
-                    begin = range.To;
-                    end = To;                    
-                    return new Range[] { new Range(begin, end) };
-                }
-                else
-                {
-                    return null;
-                }
+                begin = From;
+                end = range.From;
+                begin2 = range.To;
+                end2 = To;
+                return new Range[] { new Range(begin, end), new Range(begin2, end2) };
             }
         }
     }

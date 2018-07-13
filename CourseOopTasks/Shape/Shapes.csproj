@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{300D9F6F-C394-4F38-B752-F318A03448DD}</ProjectGuid>
+    <ProjectGuid>{812D4507-CC6F-430A-9F2D-DC63BB571CE2}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Range</RootNamespace>
-    <AssemblyName>Range</AssemblyName>
+    <RootNamespace>Shapes</RootNamespace>
+    <AssemblyName>Shapes</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -31,9 +31,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>Range.Test</StartupObject>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,8 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Range.cs" />
-    <Compile Include="Test.cs" />
+    <Compile Include="Shape.cs" />
+    <Compile Include="Triangle.cs" />
+    <Compile Include="Rectangle.cs" />
+    <Compile Include="Square.cs" />
+    <Compile Include="Circle.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
