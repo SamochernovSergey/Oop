@@ -79,12 +79,12 @@ namespace Range
         {
             if (From > range.From)
             {
-                double temp = From;
+                double tmp = From;
                 From = range.From;
-                range.From = temp;
-                temp = To;
+                range.From = tmp;
+                tmp = To;
                 To = range.To;
-                range.To = temp;
+                range.To = tmp;
             }
 
             double begin = 0;

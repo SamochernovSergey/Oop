@@ -47,7 +47,7 @@ namespace Shapes
         {
             double min = (X1 < X2) ? ((X1 < X3) ? X1 : X3) : ((X2 < X3) ? X2 : X3);
             double max = (X1 > X2) ? ((X1 > X3) ? X1 : X3) : ((X2 > X3) ? X2 : X3);
-            return max - min;
+            return max - min;//Math.Max(X1, X2, X3) - Math.Min(X1, X2, X3);
         }
         public double GetHeight()
         {
@@ -61,7 +61,10 @@ namespace Shapes
         }
         public double GetPerimeter()
         {
-            return Math.Sqrt(Math.Pow((X2 - X1),2) + Math.Pow((Y2 - Y1), 2)) + Math.Sqrt(Math.Pow((X3 - X1), 2) + Math.Pow((Y3 - Y1), 2)) + Math.Sqrt(Math.Pow((X3 - X2), 2) + Math.Pow((Y3 - Y2), 2));
+            double ab = Math.Sqrt(Math.Pow((X2 - X1), 2) + Math.Pow((Y2 - Y1), 2));
+            double ac = Math.Sqrt(Math.Pow((X3 - X1), 2) + Math.Pow((Y3 - Y1), 2));
+            double bc = Math.Sqrt(Math.Pow((X3 - X2), 2) + Math.Pow((Y3 - Y2), 2));
+            return ab + ac + bc;
         }
     }
 }
