@@ -43,107 +43,49 @@ namespace Range
 
         public Range GetIntersection(Range range)
         {
-            if (From > range.From)
-            {
-                double temp = From;
-                From = range.From;
-                range.From = temp;
-                temp = To;
-                To = range.To;
-                range.To = temp;
-            }
-
-            double begin = 0;
-            double end = 0;
-
-            if (To <= range.From)
+            if (To <= range.From || From >= range.To)
             {
                 return null;
             }
-            else if (To < range.To)
-            {
-                begin = range.From;
-                end = To;
-            }
             else
             {
-                begin = range.From;
-                end = range.To;
+                return new Range(Math.Max(From, range.From), Math.Min(To, range.To));
             }
-
-            Range rangeIntersection = new Range(begin, end);
-            return rangeIntersection;
         }
 
         public Range[] GetAssociation(Range range)
         {
-            if (From > range.From)
+            if (To >= range.From || From <= range.To)
             {
-                double tmp = From;
-                From = range.From;
-                range.From = tmp;
-                tmp = To;
-                To = range.To;
-                range.To = tmp;
-            }
-
-            double begin = 0;
-            double end = 0;
-            double begin2 = 0;
-            double end2 = 0;
-
-            if (To >= range.From)
-            {
-                begin = From;
-                end = range.To;
-                return new Range[] { new Range(begin, end) };
+                return new Range[] { new Range(Math.Min(From, range.From), Math.Max(To, range.To)) };
             }
             else
             {
-                begin = From;
-                end = To;
-                begin2 = range.From;
-                end2 = range.To;
-                return new Range[] { new Range(begin, end), new Range(begin2, end2) };
+                return new Range[] { new Range(From, To), new Range(range.From, range.To) };
             }
         }
 
         public Range[] GetDifference(Range range)
         {
-            double begin = 0;
-            double end = 0;
-            double begin2 = 0;
-            double end2 = 0;
-
-                 if (From >= range.To || To <= range.From)
+            if (From >= range.To || To <= range.From)
             {
-                begin = From;
-                end = To;
-                return new Range[] { new Range(begin, end) };
+                return new Range[] { new Range(From, To) };
             }
-            else if (From >= range.From && To <= range.To)
+            else if (From < range.From && To > range.To)
             {
-                return new Range[] { };
-            }            
-            else if (From < range.From && To <= range.To)
-            {
-                begin = From;
-                end = range.From;
-                return new Range[] { new Range(begin, end) };
+                return new Range[] { new Range(From, range.From), new Range(range.To, To) };
             }
-            else if (From >= range.From && To > range.To)
+            else if (From < range.From)
             {
-                begin = range.To;
-                end = To;
-                return new Range[] { new Range(begin, end) };
+                return new Range[] { new Range(From, range.From) };
+            }
+            else if (To > range.To)
+            {
+                return new Range[] { new Range(range.To, To) };
             }
             else
             {
-                begin = From;
-                end = range.From;
-                begin2 = range.To;
-                end2 = To;
-                return new Range[] { new Range(begin, end), new Range(begin2, end2) };
+                return new Range[] { };
             }
         }
     }

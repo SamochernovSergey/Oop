@@ -26,7 +26,7 @@ namespace Range
 
             Console.WriteLine("Пересечение");
             Console.WriteLine("Результат пересечения отрезков {0} и {1} = {2}", range1, range5, range1.GetIntersection(range5));
-            Console.WriteLine("Результат пересечения отрезков {0} и {1} = {2}", range1, range3, range1.GetIntersection(range3));
+            Console.WriteLine("Результат пересечения отрезков {0} и {1} = {2}", range4, range3, range4.GetIntersection(range3));
             Console.WriteLine("Результат пересечения отрезков {0} и {1} = {2}", range1, range2, range1.GetIntersection(range2));
 
             Console.WriteLine("Обьединение");
@@ -42,12 +42,32 @@ namespace Range
             }
 
             Console.WriteLine("Разность");
-            Console.WriteLine("Результат разности отрезков {0} и {1} : ", range3, range2);
-            foreach (Range e in range3.GetDifference(range2))
+            Console.WriteLine("Результат разности отрезков {0} и {1} : ", range2, range1);
+            foreach (Range e in range2.GetDifference(range1))
             {
                 Console.WriteLine(e);
             }
-       
+            Console.WriteLine("Результат разности отрезков {0} и {1} : ", range2, range4);
+            foreach (Range e in range2.GetDifference(range4))
+            {
+                Console.WriteLine(e);
+            }
+            Console.WriteLine("Результат разности отрезков {0} и {1} : ", range1, range4);
+            foreach (Range e in range1.GetDifference(range4))
+            {
+                Console.WriteLine(e);
+            }
+            Console.WriteLine("Результат разности отрезков {0} и {1} : ", range3, range4);
+            foreach (Range e in range3.GetDifference(range4))
+            {
+                Console.WriteLine(e);
+            }
+            Console.WriteLine("Результат разности отрезков {0} и {1} : ", range2, range2);
+            foreach (Range e in range2.GetDifference(range2))
+            {
+                Console.WriteLine(e);
+            }
+
         }
     }
 }

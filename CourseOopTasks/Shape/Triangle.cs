@@ -47,13 +47,11 @@ namespace Shapes
         {
             double min = (X1 < X2) ? ((X1 < X3) ? X1 : X3) : ((X2 < X3) ? X2 : X3);
             double max = (X1 > X2) ? ((X1 > X3) ? X1 : X3) : ((X2 > X3) ? X2 : X3);
-            return max - min;//Math.Max(X1, X2, X3) - Math.Min(X1, X2, X3);
+            return max - min;
         }
         public double GetHeight()
         {
-            double min = (Y1 < Y2) ? ((Y1 < Y3) ? Y1 : Y3) : ((Y2 < Y3) ? Y2 : Y3);
-            double max = (Y1 > Y2) ? ((Y1 > Y3) ? Y1 : Y3) : ((Y2 > Y3) ? Y2 : Y3);
-            return max - min;
+           return Math.Max(Math.Max(Y1, Y2), Math.Max(Y1, Y3));
         }
         public double GetArea()
         {
