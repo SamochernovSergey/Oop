@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-    public class Triangle : Shape
+    public class Triangle : IShape
     {
         public double X1
         {
@@ -45,13 +45,11 @@ namespace Shapes
 
         public double GetWidth()
         {
-            double min = (X1 < X2) ? ((X1 < X3) ? X1 : X3) : ((X2 < X3) ? X2 : X3);
-            double max = (X1 > X2) ? ((X1 > X3) ? X1 : X3) : ((X2 > X3) ? X2 : X3);
-            return max - min;
+            return Math.Max(Math.Max(X1, X2), X3);
         }
         public double GetHeight()
         {
-           return Math.Max(Math.Max(Y1, Y2), Math.Max(Y1, Y3));
+           return Math.Max(Math.Max(Y1, Y2), Y3);
         }
         public double GetArea()
         {
@@ -63,6 +61,13 @@ namespace Shapes
             double ac = Math.Sqrt(Math.Pow((X3 - X1), 2) + Math.Pow((Y3 - Y1), 2));
             double bc = Math.Sqrt(Math.Pow((X3 - X2), 2) + Math.Pow((Y3 - Y2), 2));
             return ab + ac + bc;
+        }
+
+        public override int GetHashCode()
+        {
+            int prime = 37;
+            int hash = 1;
+            hash = 
         }
     }
 }

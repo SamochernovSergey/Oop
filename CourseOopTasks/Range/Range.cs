@@ -38,7 +38,7 @@ namespace Range
 
         public override string ToString()
         {
-            return '(' + Convert.ToString(From) + ' ' + Convert.ToString(To) + ')';
+            return ("(" + From + " " + To + ")");
         }
 
         public Range GetIntersection(Range range)
@@ -55,13 +55,14 @@ namespace Range
 
         public Range[] GetAssociation(Range range)
         {
-            if (To >= range.From || From <= range.To)
+            if (To < range.From || From > range.To)
             {
-                return new Range[] { new Range(Math.Min(From, range.From), Math.Max(To, range.To)) };
+                return new Range[] { new Range(From, To), new Range(range.From, range.To) };
+                
             }
             else
             {
-                return new Range[] { new Range(From, To), new Range(range.From, range.To) };
+                return new Range[] { new Range(Math.Min(From, range.From), Math.Max(To, range.To)) };
             }
         }
 

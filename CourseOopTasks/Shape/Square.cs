@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-    public class Square : Shape
+    public class Square : IShape
     {
         public double SideLength
         {
@@ -18,14 +18,17 @@ namespace Shapes
         {
             return SideLength;
         }
+
         public double GetHeight()
         {
             return SideLength;
         }
+
         public double GetArea()
         {
             return Math.Pow(SideLength, 2);
         }
+
         public double GetPerimeter()
         {
             return 4 * SideLength;

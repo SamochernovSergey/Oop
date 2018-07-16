@@ -30,8 +30,8 @@ namespace Range
             Console.WriteLine("Результат пересечения отрезков {0} и {1} = {2}", range1, range2, range1.GetIntersection(range2));
 
             Console.WriteLine("Обьединение");
-            Console.WriteLine("Результат обьединения отрезков {0} и {1} : ", range2, range4);
-            foreach (Range e in range2.GetAssociation(range4))
+            Console.WriteLine("Результат обьединения отрезков {0} и {1} : ", range1, range2);
+            foreach (Range e in range1.GetAssociation(range2))
             {
                 Console.WriteLine(e);
             }
