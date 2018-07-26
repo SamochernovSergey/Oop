@@ -13,46 +13,80 @@ namespace RightReadCsv
         {
             using (StreamWriter writer = new StreamWriter("..\\..\\outputTable.html"))
             {
-                using (StreamReader reader = new StreamReader("..\\..\\inputTable.csv", Encoding.GetEncoding(1251)))
+                try
                 {
-                    string text;
-                    int stringsNumber = 0;
-                    int columsNumber = 0;
-                    string[,] cellArray =new string[stringsNumber, columsNumber];
-                    string[] stringArray = new string[stringsNumber];
-                    string[] columsArray = new string[columsNumber];
-                    while ((text = reader.ReadLine()) != null)
+                    using (StreamReader reader = new StreamReader("..\\..\\inputTable.csv", Encoding.GetEncoding(1251)))
                     {
-                        Array.Resize<string>(ref stringArray, stringsNumber + 1);
-                        stringArray[stringsNumber] = text;
-                        ++stringsNumber;
-                    }
-                    for (int i = 0; i < stringsNumber; i++)
-                    {
-                        int firstIndex = 0;
-                        string s = stringArray[i];
-                        for (int j = firstIndex; j < s.Length; ++j)
-                        {
-                            if ((s[j] == ',') || (j  == s.Length))
-                            {
-                                Array.Resize<string>(ref columsArray, columsNumber + 1);
-                                Console.WriteLine(firstIndex + "_" + j + "_" + s.Length);
-                                columsArray[columsNumber] = s.Substring(firstIndex, j-firstIndex);
-                                Console.WriteLine("ячейка № {0} = {1}", columsNumber, columsArray[columsNumber]);
-                                Console.WriteLine();
-                                ++columsNumber;
-                                firstIndex = j+1;
-                            }
-                            else if (s[j] == '"')
-                            {
+                        bool flag = false;
+                        StringBuilder stringBuilder = new StringBuilder();
+                        writer.WriteLine("<Html>" + Environment.NewLine + "<Head>" + Environment.NewLine + "<Meta charset=utf-8>"
+                            + Environment.NewLine + "<Title>Таблица из Csv файла</Title> " + Environment.NewLine + "</Head>"
+                            + Environment.NewLine + "<Body>" + Environment.NewLine + "<Table border=5>" + Environment.NewLine + "<tr>"
+                            + Environment.NewLine + "<td>");
 
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            if (line.Contains("<"))
+                            {
+                                line = line.Replace("<", "&lt;");
+                            }
+                            if (line.Contains(">"))
+                            {
+                                line = line.Replace(">", "&gt;");
+                            }
+                            if (line.Contains("&"))
+                            {
+                                line = line.Replace("&", "&amp;");
+                            }
+
+                            for (int i = 0; i < line.Length; ++i)
+                            {
+                                if (line[i] == '"')
+                                {
+                                    if (i != line.Length - 1)
+                                    {
+                                        if (!flag)
+                                        {
+                                            flag = true;
+                                        }
+                                        else if (line[i] == '"' && line[i + 1] == '"')
+                                        {
+                                            stringBuilder.Append(line[i]);
+                                            ++i;
+                                        }
+                                        else
+                                        {
+                                            flag = false;
+                                        }
+                                    }
+                                }
+                                else if (!flag && line[i] == ',')
+                                {
+                                    stringBuilder.Append("</td>").Append(Environment.NewLine).Append("<td>");
+                                }
+                                else
+                                {
+                                    stringBuilder.Append(line[i]);
+                                }
+                            }
+                            if (!flag)
+                            {
+                                stringBuilder.Append("</td>").Append(Environment.NewLine).Append("</tr>").Append(Environment.NewLine).Append("<tr>").Append(Environment.NewLine).Append("<td>");
+                            }
+                            else
+                            {
+                                stringBuilder.Append("<br/>");
                             }
                         }
+                        writer.WriteLine(stringBuilder);
+                        stringBuilder.Clear();
+                        writer.WriteLine("</Table>" + Environment.NewLine + "</Body>" + Environment.NewLine + "</Html>");
                     }
-                    writer.WriteLine("<table>");
-                    writer.Write("</td> ");
-                    writer.WriteLine("</tr>");
-                    writer.Write("</table>");
+                }
+                catch (FileNotFoundException)
+                {
+                    writer.WriteLine("Файл Отсутствует");
                 }
             }
         }

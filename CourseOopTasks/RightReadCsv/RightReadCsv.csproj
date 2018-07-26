@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>RightReadCsv.Test</StartupObject>
+    <StartupObject>RightReadCsv.Csv</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -45,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Test.cs" />
     <Compile Include="Csv.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

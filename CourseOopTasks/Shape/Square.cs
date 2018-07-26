@@ -12,6 +12,7 @@ namespace Shapes
         {
             get;
             set;
+
         }
 
         public double GetWidth()
