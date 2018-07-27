@@ -17,38 +17,40 @@ namespace RightReadCsv
                 {
                     using (StreamReader reader = new StreamReader("..\\..\\inputTable.csv", Encoding.GetEncoding(1251)))
                     {
-                        bool flag = false;
+                        bool quotedText = false;
                         StringBuilder stringBuilder = new StringBuilder();
-                        writer.WriteLine("<Html>" + Environment.NewLine + "<Head>" + Environment.NewLine + "<Meta charset=utf-8>"
-                            + Environment.NewLine + "<Title>Таблица из Csv файла</Title> " + Environment.NewLine + "</Head>"
-                            + Environment.NewLine + "<Body>" + Environment.NewLine + "<Table border=5>" + Environment.NewLine + "<tr>"
-                            + Environment.NewLine + "<td>");
+                        writer.WriteLine("<doctype>" + Environment.NewLine + "<html>" + Environment.NewLine + "<head>" 
+                            + Environment.NewLine + "<meta charset=\"utf-8\">" + Environment.NewLine + "<title>Таблица из Csv файла</title>" 
+                            + Environment.NewLine + "</head>" + Environment.NewLine + "<body>" + Environment.NewLine + "<table border=\"5\">" 
+                            + Environment.NewLine + "<tr>" + Environment.NewLine + "<td>");
 
                         string line;
                         while ((line = reader.ReadLine()) != null)
                         {
-                            if (line.Contains("<"))
-                            {
-                                line = line.Replace("<", "&lt;");
-                            }
-                            if (line.Contains(">"))
-                            {
-                                line = line.Replace(">", "&gt;");
-                            }
-                            if (line.Contains("&"))
-                            {
-                                line = line.Replace("&", "&amp;");
-                            }
-
                             for (int i = 0; i < line.Length; ++i)
                             {
+                                if (line[i] == '<')
+                                {
+                                    stringBuilder.Append("&lt;");
+                                    ++i;
+                                }
+                                if (line[i] == '>')
+                                {
+                                    stringBuilder.Append("&gt;");
+                                    ++i;
+                                }
+                                if (line[i] == '&')
+                                {
+                                    stringBuilder.Append("&amp;");
+                                    ++i;
+                                }
                                 if (line[i] == '"')
                                 {
                                     if (i != line.Length - 1)
                                     {
-                                        if (!flag)
+                                        if (!quotedText)
                                         {
-                                            flag = true;
+                                            quotedText = true;
                                         }
                                         else if (line[i] == '"' && line[i + 1] == '"')
                                         {
@@ -57,22 +59,22 @@ namespace RightReadCsv
                                         }
                                         else
                                         {
-                                            flag = false;
+                                            quotedText = false;
                                         }
                                     }
                                 }
-                                else if (!flag && line[i] == ',')
+                                else if (!quotedText && line[i] == ',')
                                 {
-                                    stringBuilder.Append("</td>").Append(Environment.NewLine).Append("<td>");
+                                    stringBuilder.Append("</td>").AppendLine().Append("<td>");
                                 }
                                 else
                                 {
                                     stringBuilder.Append(line[i]);
                                 }
                             }
-                            if (!flag)
+                            if (!quotedText)
                             {
-                                stringBuilder.Append("</td>").Append(Environment.NewLine).Append("</tr>").Append(Environment.NewLine).Append("<tr>").Append(Environment.NewLine).Append("<td>");
+                                stringBuilder.Append("</td>").AppendLine().Append("</tr>").AppendLine().Append("<tr>").AppendLine().Append("<td>");
                             }
                             else
                             {
@@ -81,7 +83,7 @@ namespace RightReadCsv
                         }
                         writer.WriteLine(stringBuilder);
                         stringBuilder.Clear();
-                        writer.WriteLine("</Table>" + Environment.NewLine + "</Body>" + Environment.NewLine + "</Html>");
+                        writer.WriteLine("</table>" + Environment.NewLine + "</body>" + Environment.NewLine + "</html>");
                     }
                 }
                 catch (FileNotFoundException)
