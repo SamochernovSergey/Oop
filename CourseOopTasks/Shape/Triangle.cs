@@ -57,14 +57,17 @@ namespace Shapes
         {
             return Math.Max(Math.Max(X1, X2), X3);
         }
+
         public double GetHeight()
         {
-           return Math.Max(Math.Max(Y1, Y2), Y3);
+            return Math.Max(Math.Max(Y1, Y2), Y3);
         }
+
         public double GetArea()
         {
             return (X1 * (Y2 - Y3) + X2 * (Y3 - Y1) + X3 * (Y1 - Y2)) / 2;
         }
+
         public double GetPerimeter()
         {
             double ab = Math.Sqrt(Math.Pow((X2 - X1), 2) + Math.Pow((Y2 - Y1), 2));
@@ -92,7 +95,7 @@ namespace Shapes
             {
                 return true;
             }
-            if (ReferenceEquals(obj,null) || obj.GetType() != this.GetType())
+            if (ReferenceEquals(obj, null) || obj.GetType() != this.GetType())
             {
                 return false;
             }
@@ -103,7 +106,7 @@ namespace Shapes
 
         public override string ToString()
         {
-            return string.Format("({0} {1}) ({2} {3}) ({4} {5})", X1, Y1, X2, Y2 ,X3, Y3);            
+            return string.Format("({0} {1}) ({2} {3}) ({4} {5})", X1, Y1, X2, Y2, X3, Y3);
         }
     }
 }

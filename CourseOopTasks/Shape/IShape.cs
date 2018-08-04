@@ -11,6 +11,6 @@ namespace Shapes
         double GetWidth();
         double GetHeight();
         double GetArea();
-        double GetPerimeter();
+        double GetPerimeter();        
     }
 }

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vectors", "Vectors\Vectors.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RightReadCsv", "RightReadCsv\RightReadCsv.csproj", "{3864BAFD-CCF2-4709-8FC6-E71FC3BB6C3A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArrayListHome", "ArrayListHome\ArrayListHome.csproj", "{A933C258-6F4F-4F57-8A42-8AC399BFF682}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{3864BAFD-CCF2-4709-8FC6-E71FC3BB6C3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3864BAFD-CCF2-4709-8FC6-E71FC3BB6C3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3864BAFD-CCF2-4709-8FC6-E71FC3BB6C3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A933C258-6F4F-4F57-8A42-8AC399BFF682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A933C258-6F4F-4F57-8A42-8AC399BFF682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A933C258-6F4F-4F57-8A42-8AC399BFF682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A933C258-6F4F-4F57-8A42-8AC399BFF682}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,57 +11,67 @@ namespace RightReadCsv
     {
         static void Main(string[] args)
         {
-            using (StreamWriter writer = new StreamWriter("..\\..\\outputTable.html"))
+            string path1 = "..\\..\\input.csv";
+            string path2 = "..\\..\\outputTable.html";
+            using (StreamWriter writer = new StreamWriter(path2))
             {
                 try
                 {
-                    using (StreamReader reader = new StreamReader("..\\..\\inputTable.csv", Encoding.GetEncoding(1251)))
+                    using (StreamReader reader = new StreamReader(path1, Encoding.GetEncoding(65001)))
                     {
                         bool quotedText = false;
                         StringBuilder stringBuilder = new StringBuilder();
-                        writer.WriteLine("<doctype>" + Environment.NewLine + "<html>" + Environment.NewLine + "<head>" 
-                            + Environment.NewLine + "<meta charset=\"utf-8\">" + Environment.NewLine + "<title>Таблица из Csv файла</title>" 
-                            + Environment.NewLine + "</head>" + Environment.NewLine + "<body>" + Environment.NewLine + "<table border=\"5\">" 
-                            + Environment.NewLine + "<tr>" + Environment.NewLine + "<td>");
+                        writer.WriteLine("<!DOCTYPE html>");
+                        writer.WriteLine("<html>");
+                        writer.WriteLine("<head>");
+                        writer.WriteLine("<meta charset=\"utf-8\">");
+                        writer.WriteLine("<title>Таблица из Csv файла</title>");
+                        writer.WriteLine("</head>");
+                        writer.WriteLine("<body>");
+                        writer.WriteLine("<table border=\"5\">");                        
 
                         string line;
                         while ((line = reader.ReadLine()) != null)
                         {
+                            if (!quotedText)
+                            {
+                                stringBuilder.Append("<tr>").AppendLine().Append("<td>");
+                            }
                             for (int i = 0; i < line.Length; ++i)
                             {
                                 if (line[i] == '<')
                                 {
                                     stringBuilder.Append("&lt;");
-                                    ++i;
+                                    continue;
                                 }
                                 if (line[i] == '>')
                                 {
                                     stringBuilder.Append("&gt;");
-                                    ++i;
+                                    continue;
                                 }
                                 if (line[i] == '&')
                                 {
                                     stringBuilder.Append("&amp;");
-                                    ++i;
+                                    continue;
                                 }
                                 if (line[i] == '"')
                                 {
-                                    if (i != line.Length - 1)
+                                    if ((i != line.Length - 1) && line[i + 1] == '"')
                                     {
-                                        if (!quotedText)
-                                        {
-                                            quotedText = true;
-                                        }
-                                        else if (line[i] == '"' && line[i + 1] == '"')
-                                        {
-                                            stringBuilder.Append(line[i]);
-                                            ++i;
-                                        }
-                                        else
-                                        {
-                                            quotedText = false;
-                                        }
+                                        ++i;
+                                        stringBuilder.Append(line[i]);
+                                        continue;
                                     }
+                                    else if (!quotedText)
+                                    {
+                                        quotedText = true;
+                                        continue;
+                                    }                                    
+                                    else
+                                    {
+                                        quotedText = false;
+                                        continue;
+                                    }                                    
                                 }
                                 else if (!quotedText && line[i] == ',')
                                 {
@@ -74,21 +84,28 @@ namespace RightReadCsv
                             }
                             if (!quotedText)
                             {
-                                stringBuilder.Append("</td>").AppendLine().Append("</tr>").AppendLine().Append("<tr>").AppendLine().Append("<td>");
+                                stringBuilder.Append("</td>").AppendLine().Append("</tr>").AppendLine();
                             }
                             else
                             {
                                 stringBuilder.Append("<br/>");
                             }
                         }
+
                         writer.WriteLine(stringBuilder);
                         stringBuilder.Clear();
-                        writer.WriteLine("</table>" + Environment.NewLine + "</body>" + Environment.NewLine + "</html>");
+                        writer.WriteLine("</table>");
+                        writer.WriteLine("</body>");
+                        writer.WriteLine("</html>");
                     }
                 }
                 catch (FileNotFoundException)
                 {
                     writer.WriteLine("Файл Отсутствует");
+                }
+                finally
+                {
+                    Console.WriteLine("Всё готово");
                 }
             }
         }
