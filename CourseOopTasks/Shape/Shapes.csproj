@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FuncCollection.cs" />
+    <Compile Include="ShapePerimetrComparer.cs" />
+    <Compile Include="ShapeAreaComparer.cs" />
     <Compile Include="IShape.cs" />
     <Compile Include="Triangle.cs" />
     <Compile Include="Rectangle.cs" />

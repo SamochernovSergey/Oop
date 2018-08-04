@@ -65,7 +65,7 @@ namespace Shapes
 
         public double GetArea()
         {
-            return (X1 * (Y2 - Y3) + X2 * (Y3 - Y1) + X3 * (Y1 - Y2)) / 2;
+            return Math.Abs(((X1 - X3) * (Y2 - Y3) - (X2 -X3) * (Y1 - Y3))/ 2);
         }
 
         public double GetPerimeter()
@@ -106,7 +106,8 @@ namespace Shapes
 
         public override string ToString()
         {
-            return string.Format("({0} {1}) ({2} {3}) ({4} {5})", X1, Y1, X2, Y2, X3, Y3);
+            return string.Format("Фигура: Треугольник, Высота = {0}, Ширина = {1}, Площадь = {2}, Периметр = {3}, ХэшКод = {4}", GetWidth(), GetHeight(), GetArea(), GetPerimeter(), GetHashCode());
+            //return string.Format("({0} {1}) ({2} {3}) ({4} {5})", X1, Y1, X2, Y2, X3, Y3);
         }
     }
 }

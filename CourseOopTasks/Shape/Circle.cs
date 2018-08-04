@@ -64,7 +64,8 @@ namespace Shapes
 
         public override string ToString()
         {
-            return string.Format("(R = {0})", Radius);
+            return string.Format("Фигура: Круг, Высота = {0}, Ширина = {1}, Площадь = {2}, Периметр = {3}, ХэшКод = {4}", GetWidth(), GetHeight(), GetArea(), GetPerimeter(), GetHashCode());
+            //return string.Format("(Круг, Р = {0})", Radius);
         }
     }
 }

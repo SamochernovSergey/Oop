@@ -72,7 +72,7 @@ namespace Shapes
 
         public override string ToString()
         {
-            return string.Format("(|{0},--{1})", SideA, SideB);
+            return string.Format("Фигура: Четырёхугольник, Высота = {0}, Ширина = {1}, Площадь = {2}, Периметр = {3}, ХэшКод = {4}", GetWidth(), GetHeight(), GetArea(), GetPerimeter(), GetHashCode());
         }
     }
 }
