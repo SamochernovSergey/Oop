@@ -11,13 +11,11 @@ namespace RightReadCsv
     {
         static void Main(string[] args)
         {
-            string path1 = "..\\..\\input.csv";
-            string path2 = "..\\..\\outputTable.html";
-            using (StreamWriter writer = new StreamWriter(path2))
+            using (StreamWriter writer = new StreamWriter(args[1]))
             {
                 try
                 {
-                    using (StreamReader reader = new StreamReader(path1, Encoding.GetEncoding(65001)))
+                    using (StreamReader reader = new StreamReader(args[0]))
                     {
                         bool quotedText = false;
                         StringBuilder stringBuilder = new StringBuilder();
@@ -55,18 +53,18 @@ namespace RightReadCsv
                                     continue;
                                 }
                                 if (line[i] == '"')
-                                {
-                                    if ((i != line.Length - 1) && line[i + 1] == '"')
+                                {                                    
+                                    if (!quotedText)
+                                    {
+                                        quotedText = true;
+                                        continue;
+                                    }
+                                    else if ((i != line.Length - 1) && line[i + 1] == '"')
                                     {
                                         ++i;
                                         stringBuilder.Append(line[i]);
                                         continue;
                                     }
-                                    else if (!quotedText)
-                                    {
-                                        quotedText = true;
-                                        continue;
-                                    }                                    
                                     else
                                     {
                                         quotedText = false;
