@@ -43,13 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FuncCollection.cs" />
-    <Compile Include="ShapePerimetrComparer.cs" />
-    <Compile Include="ShapeAreaComparer.cs" />
+    <Compile Include="Comparators\ShapePerimetrComparer.cs" />
+    <Compile Include="Comparators\ShapeAreaComparer.cs" />
     <Compile Include="IShape.cs" />
-    <Compile Include="Triangle.cs" />
-    <Compile Include="Rectangle.cs" />
-    <Compile Include="Square.cs" />
-    <Compile Include="Circle.cs" />
+    <Compile Include="Shapes\Triangle.cs" />
+    <Compile Include="Shapes\Rectangle.cs" />
+    <Compile Include="Shapes\Square.cs" />
+    <Compile Include="Shapes\Circle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
