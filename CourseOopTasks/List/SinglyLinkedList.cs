@@ -11,19 +11,19 @@ namespace List
     {
         private ListItem<T> head;
 
-        int length;
+        private int length = 0;
 
         public int GetLength()
         {
             return length;
-        }
+        } 
 
-        public ListItem<T> GetFirstElement()
+        public T GetFirstElement()
         {
-            return head;
+            return head.Data;
         }
 
-        public ListItem<T> GetDataByIndex(int index)
+        private ListItem<T> GetItemByIndex(int index)
         {
             int i = 0;
             for (ListItem<T> p = head; p != null; p = p.Next, i++)
@@ -33,42 +33,60 @@ namespace List
                     return p;
                 }
             }
-            throw new ArgumentOutOfRangeException();
+            throw new ArgumentOutOfRangeException("ArgumentOutOfRange");
+        }
+
+        public T GetDataByIndex(int index)
+        {
+            return GetItemByIndex(index).Data;
         }
 
         public T SetDataByIndex(T data, int index)
         {
-            int i = 0;
-            for (ListItem<T> p = head; p != null; p = p.Next, i++)
-            {
-                if (i == index)
-                {
-                    T oldValue = p.Data;
-                    p.Data = data;
-                    return oldValue;
-                }
-            }
-            throw new ArgumentOutOfRangeException();
+            ListItem<T> p = GetItemByIndex(index);
+            T oldValue = p.Data;
+            p.Data = data;
+            return oldValue;            
+            throw new ArgumentOutOfRangeException("ArgumentOutOfRange");
         }
 
         public T RemoveByIndex(int index)
         {
-            int i = 0;
-            for (ListItem<T> p = head, prev = null; p != null; prev = p, p = p.Next, i++)
+            if (index == 0)
             {
-                if (i == index)
-                {
-                    prev.Next = p.Next;
-                    length--;
-                    return p.Data;
-                }
+                RemoveBegin();
             }
-            throw new ArgumentOutOfRangeException();
+            else if(GetItemByIndex(index).Next == null)
+            {
+                T oldData = GetDataByIndex(index);
+                ListItem<T> p = GetItemByIndex(index - 1);
+                p.Next = null;
+                length--;
+                return oldData;
+            }
+            else
+            {
+                T oldData = GetDataByIndex(index);
+                ListItem<T> p = GetItemByIndex(index - 1);
+                p.Next = GetItemByIndex(index + 1);
+                length--;
+                return oldData;
+            }
+            /* int i = 0;
+             for (ListItem<T> p = head, prev = null; p != null; prev = p, p = p.Next, i++)
+             {
+                 if (i == index)
+                 {
+                     prev.Next = p.Next;
+                     Length--;
+                     return p.Data;
+                 }
+             }*/
+            throw new ArgumentOutOfRangeException("ArgumentOutOfRange");
         }
 
         public void InsertBegin(T data)
         {
-
             head = new ListItem<T>(data, head);
             length++;
         }
@@ -77,7 +95,7 @@ namespace List
         {
             if (index > length)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException("ArgumentOutOfRange");
             }
             else if (index == 0)
             {
@@ -85,7 +103,7 @@ namespace List
             }
             else
             {
-                ListItem<T> newItem = GetDataByIndex(index - 1);
+                ListItem<T> newItem = GetItemByIndex(index - 1);
                 newItem.Next = new ListItem<T>(data, newItem.Next);
                 length++;
             }
@@ -103,7 +121,7 @@ namespace List
                 }
                 else if (p.Next != null && p.Next.Data.Equals(data))
                 {
-                    p = p.Next.Next;
+                    p.Next = p.Next.Next;
                     length--;
                     return true;
                 }

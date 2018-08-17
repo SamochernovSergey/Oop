@@ -18,12 +18,7 @@ namespace List
         {
             get;
             set;
-        }
-
-        public ListItem()
-        {
-
-        }
+        }      
 
         public ListItem(T data)
         {
@@ -38,7 +33,7 @@ namespace List
 
         public override string ToString()
         {
-            return String.Format("{0}",Data);
-        }
+            return string.Format("{0}",Data);
+        } 
     }
 }
