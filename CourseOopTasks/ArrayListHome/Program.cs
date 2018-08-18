@@ -11,45 +11,72 @@ namespace ArrayListHome
     {
         static void Main(string[] args)
         {
-            using (StreamReader reader = new StreamReader("..\\..\\inputTxt.txt"))
+            try
             {
-                List<int> numbers = new List<int>();
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                using (StreamReader reader = new StreamReader("..\\..\\inputTxt.txt"))
                 {
-                    string[] numbersStrings = line.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);                    
-                    for (int i = 0; i < numbersStrings.Length; i++)
+                    List<string> lines = new List<string>();
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
                     {
-                        numbers.Add(Convert.ToInt32(numbersStrings[i]));                       
-                    }                                       
-                }
-                Console.WriteLine("исходный список: ");
-                Console.WriteLine(string.Join(",", numbers));
-                for (int i = 0; i < numbers.Count; i++)
-                {
-                    if (numbers[i] % 2 == 0)
+                        lines.Add(line);
+                    }
+                    foreach (string s in lines)
                     {
-                        numbers.RemoveAt(i);
-                        --i;                        
+                        Console.WriteLine(s);
                     }
                 }
-                Console.WriteLine("список без чётных чисел: ");
-                Console.WriteLine(string.Join(",", numbers));
-
-                List<int> numbers2 = new List<int>();
-                numbers2.Add(numbers[0]);
-                for (int i = 0; i < numbers.Count; i++)
-                {
-                    bool isDeleted = numbers.Remove(numbers2[i]);                    
-                    while (isDeleted)
-                    {
-                        isDeleted = numbers.Remove(numbers2[i]);
-                    }
-                    numbers2.Add(numbers[0]);
-                }
-                Console.WriteLine("список без повторения чисел: ");
-                Console.WriteLine(string.Join(",", numbers2));
             }
-        }  
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("Файл Отсутствует");
+            }
+
+            List<int> numbers = new List<int>
+            {
+                1,
+                5,
+                2,
+                1,
+                3,
+                5,
+                4,
+                8,
+                16,
+                90,
+                1,
+                5,
+                7,
+                16,
+                9,
+                54,
+                43
+            };
+
+            Console.WriteLine("исходный список: ");
+            Console.WriteLine(string.Join(",", numbers));
+            for (int i = 0; i < numbers.Count; i++)
+            {
+                if (numbers[i] % 2 == 0)
+                {
+                    numbers.RemoveAt(i);
+                    --i;
+                }
+            }
+            Console.WriteLine("список без чётных чисел: ");
+            Console.WriteLine(string.Join(",", numbers));
+
+            List<int> numbers2 = new List<int>();            
+            for (int i = 0; i < numbers.Count; i++)
+            {
+                bool isContains = numbers2.Contains(numbers[i]);
+                if (!isContains)
+                {
+                    numbers2.Add(numbers[i]);
+                }
+            }
+            Console.WriteLine("список без повторения чисел: ");
+            Console.WriteLine(string.Join(",", numbers2));
+        }
     }
 }
