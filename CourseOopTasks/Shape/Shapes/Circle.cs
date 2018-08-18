@@ -8,7 +8,7 @@ namespace Shapes
 {
     public class Circle : IShape
     {
-        public double radius
+        private double Radius
         {
             get;
             set;
@@ -16,34 +16,34 @@ namespace Shapes
 
         public Circle(double radius)
         {
-           this.radius = radius;
+           this.Radius = radius;
         }
 
         public double GetWidth()
         {
-            return 2 * radius;
+            return 2 * Radius;
         }
 
         public double GetHeight()
         {
-            return 2 * radius;
+            return 2 * Radius;
         }
 
         public double GetArea()
         {
-            return Math.PI * Math.Pow(radius, 2);
+            return Math.PI * Math.Pow(Radius, 2);
         }
 
         public double GetPerimeter()
         {
-            return 2 * Math.PI * radius;
+            return 2 * Math.PI * Radius;
         }
 
         public override int GetHashCode()
         {
             int prime = 37;
             int hash = 1;
-            hash = prime * hash + radius.GetHashCode();            
+            hash = prime * hash + Radius.GetHashCode();            
             return hash;
         }
 
@@ -59,7 +59,7 @@ namespace Shapes
             }
 
             Circle p = (Circle)obj;
-            return radius == p.radius;
+            return Radius == p.Radius;
         }
 
         public override string ToString()

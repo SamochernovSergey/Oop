@@ -45,7 +45,7 @@
     <Compile Include="FuncCollection.cs" />
     <Compile Include="Comparators\ShapePerimetrComparer.cs" />
     <Compile Include="Comparators\ShapeAreaComparer.cs" />
-    <Compile Include="IShape.cs" />
+    <Compile Include="Shapes\IShape.cs" />
     <Compile Include="Shapes\Triangle.cs" />
     <Compile Include="Shapes\Rectangle.cs" />
     <Compile Include="Shapes\Square.cs" />

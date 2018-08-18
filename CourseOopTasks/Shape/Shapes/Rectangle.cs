@@ -8,13 +8,13 @@ namespace Shapes
 {
     public class Rectangle : IShape
     {
-        public double sideA
+        public double SideA
         {
             get;
             set;
         }
 
-        public double sideB
+        public double SideB
         {
             get;
             set;
@@ -22,36 +22,36 @@ namespace Shapes
         
         public Rectangle(double sideA, double sideB)
         {
-            this.sideA = sideA;
-            this.sideB = sideB;
+            this.SideA = sideA;
+            this.SideB = sideB;
         }
 
         public double GetWidth()
         {
-            return sideA;
+            return SideA;
         }
 
         public double GetHeight()
         {
-            return sideB;
+            return SideB;
         }
 
         public double GetArea()
         {
-            return sideA * sideB;
+            return SideA * SideB;
         }
 
         public double GetPerimeter()
         {
-            return 2 * (sideA + sideB);
+            return 2 * (SideA + SideB);
         }
 
         public override int GetHashCode()
         {
             int prime = 37;
             int hash = 1;
-            hash = prime * hash + sideA.GetHashCode();
-            hash = prime * hash + sideB.GetHashCode();
+            hash = prime * hash + SideA.GetHashCode();
+            hash = prime * hash + SideB.GetHashCode();
             return hash;
         }
 
@@ -67,7 +67,7 @@ namespace Shapes
             }
 
             Rectangle p = (Rectangle)obj;
-            return sideA == p.sideA && sideB == p.sideB;
+            return SideA == p.SideA && SideB == p.SideB;
         }
 
         public override string ToString()

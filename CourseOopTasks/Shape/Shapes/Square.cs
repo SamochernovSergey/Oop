@@ -8,7 +8,7 @@ namespace Shapes
 {
     public class Square : IShape
     {
-        public double sideLength
+        private double SideLength
         {
             get;
             set;
@@ -16,34 +16,34 @@ namespace Shapes
 
         public Square(double sideLength)
         {
-            this.sideLength = sideLength;
+            this.SideLength = sideLength;
         }
 
         public double GetWidth()
         {
-            return sideLength;
+            return SideLength;
         }
 
         public double GetHeight()
         {
-            return sideLength;
+            return SideLength;
         }
 
         public double GetArea()
         {
-            return Math.Pow(sideLength, 2);
+            return Math.Pow(SideLength, 2);
         }
 
         public double GetPerimeter()
         {
-            return 4 * sideLength;
+            return 4 * SideLength;
         }
 
         public override int GetHashCode()
         {
             int prime = 37;
             int hash = 1;
-            hash = prime * hash + sideLength.GetHashCode();
+            hash = prime * hash + SideLength.GetHashCode();
             return hash;
         }
 
@@ -59,7 +59,7 @@ namespace Shapes
             }
 
             Square p = (Square)obj;
-            return sideLength == p.sideLength;
+            return SideLength == p.SideLength;
         }
 
         public override string ToString()

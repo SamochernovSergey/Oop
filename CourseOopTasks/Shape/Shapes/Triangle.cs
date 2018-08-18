@@ -8,36 +8,36 @@ namespace Shapes
 {
     public class Triangle : IShape
     {
-        public double x1
+        private double X1
         {
             get;
             set;
         }
 
-        public double x2
+        private double X2
         {
             get;
             set;
         }
 
-        public double x3
+        private double X3
         {
             get;
             set;
         }
-        public double y1
-        {
-            get;
-            set;
-        }
-
-        public double y2
+        private double Y1
         {
             get;
             set;
         }
 
-        public double y3
+        private double Y2
+        {
+            get;
+            set;
+        }
+
+        private double Y3
         {
             get;
             set;
@@ -45,49 +45,49 @@ namespace Shapes
 
         public Triangle(double x1, double y1, double x2, double y2, double x3, double y3)
         {
-            this.x1 = x1;
-            this.y1 = y1;
-            this.x2 = x2;
-            this.y2 = y2;
-            this.x3 = x3;
-            this.y3 = y3;
+            this.X1 = x1;
+            this.Y1 = y1;
+            this.X2 = x2;
+            this.Y2 = y2;
+            this.X3 = x3;
+            this.Y3 = y3;
         }
 
         public double GetWidth()
         {
-            return Math.Max(Math.Max(x1, x2), x3);
+            return Math.Max(Math.Max(X1, X2), X3);
         }
 
         public double GetHeight()
         {
-            return Math.Max(Math.Max(y1, y2), y3);
+            return Math.Max(Math.Max(Y1, Y2), Y3);
         }
 
         public double GetArea()
         {
-            return Math.Abs(((x1 - x3) * (y2 - y3) - (x2 -x3) * (y1 - y3))/ 2);
+            return Math.Abs(((X1 - X3) * (Y2 - Y3) - (X2 -X3) * (Y1 - Y3))/ 2);
         }
 
-        public static double GetLength(double x1, double x2, double y1, double y2)
+        private static double GetLength(double x1, double x2, double y1, double y2)
         {
             return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
         }
 
         public double GetPerimeter()
         {            
-            return GetLength(x1,x2,y1,y2) + GetLength(x1, x3, y1, y3) + GetLength(x2, x3, y2, y3);
+            return GetLength(X1,X2,Y1,Y2) + GetLength(X1, X3, Y1, Y3) + GetLength(X2, X3, Y2, Y3);
         }
 
         public override int GetHashCode()
         {
             int prime = 37;
             int hash = 1;
-            hash = prime * hash + x1.GetHashCode();
-            hash = prime * hash + x2.GetHashCode();
-            hash = prime * hash + x3.GetHashCode();
-            hash = prime * hash + y1.GetHashCode();
-            hash = prime * hash + y2.GetHashCode();
-            hash = prime * hash + y3.GetHashCode();
+            hash = prime * hash + X1.GetHashCode();
+            hash = prime * hash + X2.GetHashCode();
+            hash = prime * hash + X3.GetHashCode();
+            hash = prime * hash + Y1.GetHashCode();
+            hash = prime * hash + Y2.GetHashCode();
+            hash = prime * hash + Y3.GetHashCode();
             return hash;
         }
 
@@ -103,7 +103,7 @@ namespace Shapes
             }
 
             Triangle p = (Triangle)obj;
-            return x1 == p.x1 && y1 == p.y1 && x2 == p.x2 && y2 == p.y2 && x3 == p.x3 && y3 == p.y3;
+            return X1 == p.X1 && Y1 == p.Y1 && X2 == p.X2 && Y2 == p.Y2 && X3 == p.X3 && Y3 == p.Y3;
         }
 
         public override string ToString()
