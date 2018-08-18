@@ -19,10 +19,10 @@ namespace List
             s.InsertBegin("Samy");
             Console.WriteLine("Начальный список: ");
             s.PrintList();
-            Console.WriteLine("получение размера списка = {0}", s.GetLength());
+            Console.WriteLine("получение размера списка = {0}", s.Length);
             string first = s.GetFirstElement();
             Console.WriteLine("получение значение первого элемента = {0}", first);            
-            Console.WriteLine("получение значения по указанному индексу 4 = {0} ", s.GetDataByIndex(4));           
+            Console.WriteLine("получение значения по указанному индексу 2 = {0} ", s.GetDataByIndex(2));           
             Console.WriteLine("Изменение значения = Sonya по индексу 2 выдает старое значение: {0}", s.SetDataByIndex("Sonya", 2));
             Console.WriteLine("список изменён : ");
             s.PrintList();
@@ -33,11 +33,11 @@ namespace List
             s.InsertBegin("Gogy");
             Console.WriteLine("список изменён: ");
             s.PrintList();
-            Console.WriteLine("вставка элемента Noname по индексу 3");
-            s.InsertByIndex("Noname", 3);
+            Console.WriteLine("вставка элемента null по индексу 3");
+            s.InsertByIndex("", 3);
             Console.WriteLine("список изменён: ");
             s.PrintList();
-            Console.WriteLine("удаление узла по значению Noname , выдает true, если элемент был удален {0}", s.RemoveByData("Noname"));
+            Console.WriteLine("удаление узла по значению null , результат = {0}", s.RemoveByData(""));
             Console.WriteLine("список изменён: ");
             s.PrintList();
             Console.WriteLine("удаление первого элемента, выдает значение элемента = {0}", s.RemoveBegin());
@@ -49,7 +49,7 @@ namespace List
             Console.WriteLine("копирование списка ");
             SinglyLinkedList<string> copy = s.Copy();
             copy.PrintList();
-            Console.WriteLine("Длинна Скопированного = {0}", copy.GetLength());
+            Console.WriteLine("Длинна Скопированного = {0}", copy.Length);
         }
     }
 }
