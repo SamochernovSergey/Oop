@@ -11,34 +11,34 @@ namespace List
     {
         private ListItem<T> head;
 
-        private int length = 0;
-
-        public int Length
+        public int Count
         {
-            get
-            {
-                return length;
-            }
+            get;
+            private set;
         }
 
         public T GetFirstElement()
         {
+            if (head == null)
+            {
+                throw new NullReferenceException("List is empty");
+            }
             return head.Data;
         }
 
         private ListItem<T> GetItemByIndex(int index)
         {
-            if (index < 0 || index > length - 1)
+            if (index < 1 || index >= Count)
             {
                 throw new IndexOutOfRangeException("Argument Out Of Range");
             }
-            else if (index == 0)
+            else if (index == 1)
             {
                 return head;
             }
             else
             {
-                int i = 1;
+                int i = 2;
                 ListItem<T> p = null;
                 for (p = head.Next; p != null; p = p.Next, i++)
                 {
@@ -47,6 +47,7 @@ namespace List
                         break;
                     }
                 }
+
                 return p;
             }
         }
@@ -66,49 +67,36 @@ namespace List
 
         public T RemoveByIndex(int index)
         {
-            if (index == 0)
+            if (index < 1 || index > Count)
+            {
+                throw new IndexOutOfRangeException("Argument Out Of Range");
+            }
+            if (index == 1)
             {
                 RemoveBegin();
             }
 
             ListItem<T> p = GetItemByIndex(index - 1);
-
-            if (p.Next == null || index < 0)
-            {
-                throw new IndexOutOfRangeException("Argument Out Of Range");
-            }
-
             T oldData = p.Next.Data;
+            p.Next = p.Next.Next;
+            Count--;
+            return oldData;
 
-            if (p.Next.Next == null)
-            {
-                p.Next = null;
-                length--;
-                return oldData;
-            }
-            else
-            {
-                p.Next = p.Next.Next;
-                length--;
-                return oldData;
-            }
-
-            throw new IndexOutOfRangeException("Argument Out Of Range");
         }
 
         public void InsertBegin(T data)
         {
             head = new ListItem<T>(data, head);
-            length++;
+            Count++;
         }
 
         public void InsertByIndex(T data, int index)
         {
-            if (index > length)
+            if (index > Count || index < 1)
             {
                 throw new IndexOutOfRangeException("Argument Out Of Range");
             }
-            else if (index == 0)
+            else if (index == 1)
             {
                 InsertBegin(data);
             }
@@ -116,24 +104,24 @@ namespace List
             {
                 ListItem<T> newItem = GetItemByIndex(index - 1);
                 newItem.Next = new ListItem<T>(data, newItem.Next);
-                length++;
+                Count++;
             }
         }
 
         public bool RemoveByData(T data)
         {
-            if (head.Data.Equals(data))
+            if (Object.Equals(head.Data, data))
             {
                 head = head.Next;
-                length--;
+                Count--;
                 return true;
             }
             for (ListItem<T> p = head.Next; p.Next != null; p = p.Next)
             {
-                if (p.Next.Data.Equals(data))
+                if (Object.Equals(p.Next.Data, data))
                 {
                     p.Next = p.Next.Next;
-                    length--;
+                    Count--;
                     return true;
                 }
             }
@@ -148,7 +136,7 @@ namespace List
             }
             ListItem<T> p = head;
             head = head.Next;
-            length--;
+            Count--;
             return p.Data;
         }
 
@@ -162,13 +150,20 @@ namespace List
 
         public void Reverse()
         {
+            if (head == null)
+            {
+                return;                
+            }
+
             ListItem<T> newItem = null;
+
             for (ListItem<T> p = head.Next; p != null; p = p.Next)
             {
                 head.Next = newItem;
                 newItem = head;
                 head = p;
             }
+
             head.Next = newItem;
         }
 
@@ -180,14 +175,17 @@ namespace List
             {
                 return copy;
             }
+
             ListItem<T> newItem = new ListItem<T>(head.Data, head.Next);
             copy.head = newItem;
+
             for (ListItem<T> p = head; p.Next != null; p = p.Next, newItem = newItem.Next)
             {
                 newItem.Next = new ListItem<T>(p.Next.Data, p);
             }
+
             newItem.Next = null;
-            copy.length = length;
+            copy.Count = Count;
             return copy;
         }
     }
