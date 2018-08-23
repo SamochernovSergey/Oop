@@ -50,7 +50,8 @@ namespace ArrayListHome
                 16,
                 9,
                 54,
-                43
+                43,
+                11
             };
 
             Console.WriteLine("исходный список: ");
