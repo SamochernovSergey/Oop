@@ -17,12 +17,11 @@ namespace Shapes
             Circle e = new Circle(2.9);
             Rectangle f = new Rectangle(20, 21);
             Square g = new Square(33);
-            
+
             IShape[] shapesArray = { a, b, c, d, e, f, g };
 
             Console.WriteLine(FuncCollection.GetMaxArea(shapesArray));
             Console.WriteLine(FuncCollection.GetSecondMaxPerimeter(shapesArray));
         }
-        
-    }    
+    }
 }

@@ -19,7 +19,7 @@ namespace Shapes
             get;
             set;
         }
-        
+
         public Rectangle(double sideA, double sideB)
         {
             this.SideA = sideA;
@@ -61,6 +61,7 @@ namespace Shapes
             {
                 return true;
             }
+
             if (ReferenceEquals(obj, null) || obj.GetType() != this.GetType())
             {
                 return false;

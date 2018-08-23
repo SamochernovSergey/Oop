@@ -53,6 +53,7 @@ namespace Shapes
             {
                 return true;
             }
+
             if (ReferenceEquals(obj, null) || obj.GetType() != this.GetType())
             {
                 return false;
@@ -64,7 +65,7 @@ namespace Shapes
 
         public override string ToString()
         {
-            return string.Format("Фигура: Квадрат, Высота = {0}, Ширина = {1}, Площадь = {2}, Периметр = {3}, ХэшКод = {4}", GetWidth(), GetHeight(), GetArea(), GetPerimeter(), GetHashCode());           
+            return string.Format("Фигура: Квадрат, Высота = {0}, Ширина = {1}, Площадь = {2}, Периметр = {3}, ХэшКод = {4}", GetWidth(), GetHeight(), GetArea(), GetPerimeter(), GetHashCode());
         }
     }
 }

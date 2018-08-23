@@ -16,7 +16,7 @@ namespace Shapes
 
         public Circle(double radius)
         {
-           this.Radius = radius;
+            this.Radius = radius;
         }
 
         public double GetWidth()
@@ -43,7 +43,7 @@ namespace Shapes
         {
             int prime = 37;
             int hash = 1;
-            hash = prime * hash + Radius.GetHashCode();            
+            hash = prime * hash + Radius.GetHashCode();
             return hash;
         }
 

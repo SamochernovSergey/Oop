@@ -65,7 +65,7 @@ namespace Shapes
 
         public double GetArea()
         {
-            return Math.Abs(((X1 - X3) * (Y2 - Y3) - (X2 -X3) * (Y1 - Y3))/ 2);
+            return Math.Abs(((X1 - X3) * (Y2 - Y3) - (X2 - X3) * (Y1 - Y3)) / 2);
         }
 
         private static double GetLength(double x1, double x2, double y1, double y2)
@@ -74,8 +74,8 @@ namespace Shapes
         }
 
         public double GetPerimeter()
-        {            
-            return GetLength(X1,X2,Y1,Y2) + GetLength(X1, X3, Y1, Y3) + GetLength(X2, X3, Y2, Y3);
+        {
+            return GetLength(X1, X2, Y1, Y2) + GetLength(X1, X3, Y1, Y3) + GetLength(X2, X3, Y2, Y3);
         }
 
         public override int GetHashCode()
@@ -97,6 +97,7 @@ namespace Shapes
             {
                 return true;
             }
+
             if (ReferenceEquals(obj, null) || obj.GetType() != this.GetType())
             {
                 return false;
@@ -108,7 +109,7 @@ namespace Shapes
 
         public override string ToString()
         {
-            return string.Format("Фигура: Треугольник, Высота = {0}, Ширина = {1}, Площадь = {2}, Периметр = {3}, ХэшКод = {4}", GetWidth(), GetHeight(), GetArea(), GetPerimeter(), GetHashCode());            
+            return string.Format("Фигура: Треугольник, Высота = {0}, Ширина = {1}, Площадь = {2}, Периметр = {3}, ХэшКод = {4}", GetWidth(), GetHeight(), GetArea(), GetPerimeter(), GetHashCode());
         }
     }
 }

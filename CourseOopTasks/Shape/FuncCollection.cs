@@ -10,7 +10,7 @@ namespace Shapes
     {
         public static IShape GetMaxArea(IShape[] shapesArray)
         {
-            Array.Sort(shapesArray, new ShapeAreaComparer());
+            Array.Sort(shapesArray, new ShapesAreaComparer());
             return shapesArray[shapesArray.Length - 1];
         }
 
