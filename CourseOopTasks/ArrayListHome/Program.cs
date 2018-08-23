@@ -50,8 +50,7 @@ namespace ArrayListHome
                 16,
                 9,
                 54,
-                43,
-                11
+                43
             };
 
             Console.WriteLine("исходный список: ");
@@ -68,12 +67,11 @@ namespace ArrayListHome
             Console.WriteLine(string.Join(",", numbers));
 
             List<int> numbers2 = new List<int>();            
-            for (int i = 0; i < numbers.Count; i++)
+            foreach (int e in numbers)
             {
-                bool isContains = numbers2.Contains(numbers[i]);
-                if (!isContains)
+                if (!numbers2.Contains(e))
                 {
-                    numbers2.Add(numbers[i]);
+                    numbers2.Add(e);
                 }
             }
             Console.WriteLine("список без повторения чисел: ");
