@@ -69,7 +69,6 @@ namespace Range
             }
             try
             Console.ReadLine();
-
         }
     }
 }
