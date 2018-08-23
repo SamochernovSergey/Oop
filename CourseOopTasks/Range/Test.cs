@@ -67,7 +67,7 @@ namespace Range
             {
                 Console.WriteLine(e);
             }
-            try
+            
             Console.ReadLine();
         }
     }
