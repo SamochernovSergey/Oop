@@ -19,7 +19,6 @@ namespace Shapes
             Square g = new Square(33);
 
             IShape[] shapesArray = { a, b, c, d, e, f, g };
-
             Console.WriteLine(FuncCollection.GetMaxArea(shapesArray));
             Console.WriteLine(FuncCollection.GetSecondMaxPerimeter(shapesArray));
         }
