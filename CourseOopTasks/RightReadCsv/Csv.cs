@@ -16,6 +16,7 @@ namespace RightReadCsv
                 Console.WriteLine("Для правильной работы программы необходимо ввести два аргумента");
                 Console.WriteLine("первый аргумент путь и название файла откуда берутся данные");
                 Console.WriteLine("второй аргумент путь и название файла куда данные надо записать");
+
                 return;
             }
             using (StreamWriter writer = new StreamWriter(args[1]))
