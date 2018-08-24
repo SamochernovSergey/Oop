@@ -28,17 +28,17 @@ namespace List
 
         private ListItem<T> GetItemByIndex(int index)
         {
-            if (index < 1 || index >= Count)
+            if (index < 0 || index >= Count)
             {
                 throw new IndexOutOfRangeException("Argument Out Of Range");
             }
-            else if (index == 1)
+            else if (index == 0)
             {
                 return head;
             }
             else
             {
-                int i = 2;
+                int i = 1;
                 ListItem<T> p = null;
                 for (p = head.Next; p != null; p = p.Next, i++)
                 {
@@ -67,11 +67,11 @@ namespace List
 
         public T RemoveByIndex(int index)
         {
-            if (index < 1 || index > Count)
+            if (index < 0 || index > Count)
             {
                 throw new IndexOutOfRangeException("Argument Out Of Range");
             }
-            if (index == 1)
+            if (index == 0)
             {
                 RemoveBegin();
             }
@@ -92,11 +92,11 @@ namespace List
 
         public void InsertByIndex(T data, int index)
         {
-            if (index > Count || index < 1)
+            if (index > Count || index < 0)
             {
                 throw new IndexOutOfRangeException("Argument Out Of Range");
             }
-            else if (index == 1)
+            else if (index == 0)
             {
                 InsertBegin(data);
             }
@@ -110,7 +110,7 @@ namespace List
 
         public bool RemoveByData(T data)
         {
-            if (Object.Equals(head.Data, data))
+            if (object.Equals(head.Data, data))
             {
                 head = head.Next;
                 Count--;
@@ -118,7 +118,7 @@ namespace List
             }
             for (ListItem<T> p = head.Next; p.Next != null; p = p.Next)
             {
-                if (Object.Equals(p.Next.Data, data))
+                if (object.Equals(p.Next.Data, data))
                 {
                     p.Next = p.Next.Next;
                     Count--;
@@ -176,15 +176,14 @@ namespace List
                 return copy;
             }
 
-            ListItem<T> newItem = new ListItem<T>(head.Data, head.Next);
+            ListItem<T> newItem = new ListItem<T>(head.Data);
             copy.head = newItem;
 
             for (ListItem<T> p = head; p.Next != null; p = p.Next, newItem = newItem.Next)
             {
-                newItem.Next = new ListItem<T>(p.Next.Data, p);
+                newItem.Next = new ListItem<T>(p.Next.Data);
             }
-
-            newItem.Next = null;
+            
             copy.Count = Count;
             return copy;
         }

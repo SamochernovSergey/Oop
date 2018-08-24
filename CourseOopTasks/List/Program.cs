@@ -30,7 +30,7 @@ namespace List
             Console.WriteLine("Изменение значения = Sonya по индексу 2 выдает старое значение: {0}", s.SetDataByIndex("Sonya", 2));
             Console.WriteLine("список изменён : ");
             s.PrintList();
-            Console.WriteLine("удаление элемента по индексу, выдает значение элемента: 5 = {0}", s.RemoveByIndex(5));
+            Console.WriteLine("удаление элемента по индексу, выдает значение элемента: 4 = {0}", s.RemoveByIndex(4));
             Console.WriteLine("список изменён: ");
             s.PrintList();
             Console.WriteLine("вставка элемента Gogy в начало");
