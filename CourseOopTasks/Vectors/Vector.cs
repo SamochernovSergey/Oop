@@ -25,17 +25,17 @@ namespace Vectors
 
         }
 
-        public Vector(Vector)
+        public Vector(Vector x)
         {
 
         }
 
-        public Vector(double[])
+        public Vector(double q)
         {
 
         }
 
-        public Vector(n, double[])
+        public Vector(int n, double q)
         {
 
         }
