@@ -36,20 +36,17 @@ namespace List
             {
                 return head;
             }
-            else
-            {
-                int i = 1;
-                ListItem<T> p = null;
-                for (p = head.Next; p != null; p = p.Next, i++)
-                {
-                    if (index == i)
-                    {
-                        break;
-                    }
-                }
 
-                return p;
+            int i = 1;
+            ListItem<T> p;
+            for (p = head.Next; p != null; p = p.Next, i++)
+            {
+                if (index == i)
+                {
+                    break;
+                }
             }
+            return p;
         }
 
         public T GetDataByIndex(int index)
@@ -67,21 +64,24 @@ namespace List
 
         public T RemoveByIndex(int index)
         {
-            if (index < 0 || index > Count)
+            if (index < 0 || index >= Count)
             {
                 throw new IndexOutOfRangeException("Argument Out Of Range");
             }
+            T oldData;
             if (index == 0)
             {
+                oldData = head.Data;
                 RemoveBegin();
             }
-
-            ListItem<T> p = GetItemByIndex(index - 1);
-            T oldData = p.Next.Data;
-            p.Next = p.Next.Next;
-            Count--;
-            return oldData;
-
+            else
+            {
+                ListItem<T> p = GetItemByIndex(index - 1);
+                oldData = p.Next.Data;
+                p.Next = p.Next.Next;
+                Count--;
+            }
+            return oldData;            
         }
 
         public void InsertBegin(T data)
@@ -110,6 +110,10 @@ namespace List
 
         public bool RemoveByData(T data)
         {
+            if (head == null)
+            {
+                throw new NullReferenceException("List is empty");
+            }
             if (object.Equals(head.Data, data))
             {
                 head = head.Next;
@@ -152,7 +156,7 @@ namespace List
         {
             if (head == null)
             {
-                return;                
+                return;
             }
 
             ListItem<T> newItem = null;
@@ -183,7 +187,7 @@ namespace List
             {
                 newItem.Next = new ListItem<T>(p.Next.Data);
             }
-            
+
             copy.Count = Count;
             return copy;
         }
