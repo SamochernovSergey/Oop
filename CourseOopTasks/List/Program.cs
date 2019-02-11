@@ -16,6 +16,9 @@ namespace List
             Console.WriteLine("разворот пустого списка");
             s.Reverse();
             s.PrintList();
+            Console.WriteLine("удаление узла по значению Tommy , результат = {0}", s.RemoveByData("Tommy"));
+            Console.WriteLine("список изменён: ");
+            s.PrintList();
             s.InsertBegin("Tommy");
             s.InsertBegin("Boby");
             s.InsertBegin("Alice");

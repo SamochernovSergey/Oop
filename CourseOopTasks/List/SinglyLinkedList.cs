@@ -112,7 +112,7 @@ namespace List
         {
             if (head == null)
             {
-                throw new NullReferenceException("List is empty");
+                return false;
             }
             if (object.Equals(head.Data, data))
             {
