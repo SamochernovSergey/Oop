@@ -32,7 +32,7 @@ namespace List
             {
                 throw new IndexOutOfRangeException("Argument Out Of Range");
             }
-            else if (index == 0)
+            if (index == 0)
             {
                 return head;
             }
@@ -68,6 +68,7 @@ namespace List
             {
                 throw new IndexOutOfRangeException("Argument Out Of Range");
             }
+
             T oldData;
             if (index == 0)
             {
@@ -96,14 +97,15 @@ namespace List
             {
                 throw new IndexOutOfRangeException("Argument Out Of Range");
             }
-            else if (index == 0)
+
+            if (index == 0)
             {
                 InsertBegin(data);
             }
             else
             {
-                ListItem<T> newItem = GetItemByIndex(index - 1);
-                newItem.Next = new ListItem<T>(data, newItem.Next);
+                ListItem<T> prevItem = GetItemByIndex(index - 1);
+                prevItem.Next = new ListItem<T>(data, prevItem.Next);
                 Count++;
             }
         }
@@ -138,6 +140,7 @@ namespace List
             {
                 throw new NullReferenceException("List is empty");
             }
+
             ListItem<T> p = head;
             head = head.Next;
             Count--;
