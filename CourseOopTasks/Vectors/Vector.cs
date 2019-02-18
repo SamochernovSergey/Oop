@@ -8,7 +8,7 @@ namespace Vectors
 {
     class Vector
     {
-        private double[] coordinates;        
+        private double[] coordinates;
 
         public Vector(int n)
         {
@@ -27,6 +27,10 @@ namespace Vectors
 
         public Vector(double[] array)
         {
+            if (array.Length == 0)
+            {
+                throw new ArgumentException("Размерность вектора должна быть больше нуля");
+            }
             coordinates = (double[])array.Clone();
         }
 
@@ -41,7 +45,7 @@ namespace Vectors
             {
                 coordinates = new double[n];
                 Array.Copy(array, coordinates, array.Length);
-            }            
+            }
             else
             {
                 coordinates = new double[n];
@@ -52,24 +56,24 @@ namespace Vectors
         public int GetSize()
         {
             return coordinates.Length;
-        }        
+        }
 
         public override string ToString()
         {
             return "{" + string.Join(", ", coordinates) + "}";
-        }        
+        }
 
         public void Addition(Vector vector)
-        {            
+        {
             if (GetSize() < vector.GetSize())
             {
-                Array.Resize(ref coordinates, vector.GetSize());                
+                Array.Resize(ref coordinates, vector.GetSize());
             }
 
             for (int i = 0; i < vector.GetSize(); i++)
             {
                 coordinates[i] += vector.coordinates[i];
-            }            
+            }
         }
 
         public void Subtraction(Vector vector)
@@ -82,18 +86,18 @@ namespace Vectors
             for (int i = 0; i < vector.GetSize(); i++)
             {
                 coordinates[i] -= vector.coordinates[i];
-            }            
+            }
         }
 
         public void MultiplicationOnScalar(double scalar)
         {
             for (int i = 0; i < GetSize(); i++)
             {
-                coordinates[i] = coordinates[i] * scalar;
+                coordinates[i] *= scalar;
             }
         }
 
-        public void Expand()
+        public void GetReverse()
         {
             for (int i = 0; i < GetSize(); i++)
             {
@@ -101,13 +105,13 @@ namespace Vectors
             }
         }
 
-        public double Length()
+        public double GetLength()
         {
             double intermediateValue = 0;
 
-            for (int i = 0; i < GetSize(); i++)
+            foreach (int e in coordinates)
             {
-                intermediateValue += Math.Pow(coordinates[i], 2);
+                intermediateValue += Math.Pow(coordinates[e], 2);
             }
 
             return Math.Sqrt(intermediateValue);
@@ -115,7 +119,7 @@ namespace Vectors
 
         public double GetComponentByIndex(int index)
         {
-            if (index < 0 || index > GetSize())
+            if (index < 0 || index >= GetSize())
             {
                 throw new ArgumentOutOfRangeException("Выход за размеры вектора!!!");
             }
@@ -125,7 +129,7 @@ namespace Vectors
 
         public void SetComponentByIndex(int index, double newValue)
         {
-            if (index < 0 || index > GetSize())
+            if (index < 0 || index >= GetSize())
             {
                 throw new ArgumentOutOfRangeException("Выход за размеры вектора!!!");
             }
@@ -169,9 +173,9 @@ namespace Vectors
             int hash = 1;
             hash = prime * hash + GetSize();
 
-            for (int i = 0; i < GetSize(); i++)
+            foreach (int e in coordinates)
             {
-                hash += prime * hash + coordinates[i].GetHashCode();
+                hash += prime * hash + coordinates[e].GetHashCode();
             }
 
             return hash;
@@ -194,18 +198,8 @@ namespace Vectors
         public static double ScalarProduct(Vector vector1, Vector vector2)
         {
             double scalar = 0;
-            int size;
 
-            if (vector1.GetSize() >= vector2.GetSize())
-            {
-                size = vector2.GetSize();
-            }
-            else
-            {
-                size = vector1.GetSize();
-            }
-
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < Math.Min(vector1.GetSize(), vector2.GetSize()); i++)
             {
                 scalar += vector1.coordinates[i] * vector2.coordinates[i];
             }

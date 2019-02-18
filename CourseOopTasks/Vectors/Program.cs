@@ -44,7 +44,7 @@ namespace Vectors
             Console.WriteLine(v.GetComponentByIndex(3));
             v.SetComponentByIndex(3,12);
             Console.WriteLine(v);
-            v.Expand();
+            v.GetReverse();
             Console.WriteLine(v);
         }
     }
