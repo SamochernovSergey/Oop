@@ -59,53 +59,30 @@ namespace Vectors
             return "{" + string.Join(", ", coordinates) + "}";
         }        
 
-        public void Adition(Vector vector)
-        {
-            Vector vectorsSum;
-            int size;
-
-            if (GetSize() >= vector.GetSize())
+        public void Addition(Vector vector)
+        {            
+            if (GetSize() < vector.GetSize())
             {
-                vectorsSum = new Vector(GetSize(), coordinates);
-                size = vector.GetSize();
-            }
-            else
-            {
-                vectorsSum = new Vector(vector.GetSize(), vector.coordinates);
-                size = GetSize();
+                Array.Resize(ref coordinates, vector.GetSize());                
             }
 
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < vector.GetSize(); i++)
             {
-                vectorsSum.coordinates[i] = coordinates[i] + vector.coordinates[i];
-            }
-
-            coordinates = vectorsSum.coordinates;
+                coordinates[i] += vector.coordinates[i];
+            }            
         }
 
         public void Subtraction(Vector vector)
         {
-            Vector vectorsDifference;
-            int size;
-
-            if (GetSize() >= vector.GetSize())
+            if (GetSize() < vector.GetSize())
             {
-                vectorsDifference = new Vector(GetSize(), coordinates);
-                size = vector.GetSize();
-            }
-            else
-            {
-                vectorsDifference = new Vector(vector.GetSize(), vector.coordinates);
-                vectorsDifference.Expand();
-                size = GetSize();
+                Array.Resize(ref coordinates, vector.GetSize());
             }
 
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < vector.GetSize(); i++)
             {
-                vectorsDifference.coordinates[i] = coordinates[i] - vector.coordinates[i];
-            }
-
-            coordinates = vectorsDifference.coordinates;
+                coordinates[i] -= vector.coordinates[i];
+            }            
         }
 
         public void MultiplicationOnScalar(double scalar)
@@ -203,7 +180,7 @@ namespace Vectors
         public static Vector Addition(Vector vector1, Vector vector2)
         {
             Vector vectorsSum = new Vector(vector1);
-            vectorsSum.Adition(vector2);
+            vectorsSum.Addition(vector2);
             return vectorsSum;
         }
 

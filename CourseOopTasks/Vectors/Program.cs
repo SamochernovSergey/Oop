@@ -17,11 +17,16 @@ namespace Vectors
             Vector b = new Vector(a);
             Vector y = new Vector(v);
             Console.WriteLine(y.Equals(q));
+            Console.WriteLine("Вектор v = ");
             Console.WriteLine(v);
+            Console.WriteLine("Вектор b = ");
             Console.WriteLine(b);
             Vector c = Vector.Addition(v,b);
+            Console.WriteLine("Addition(v,b) = ");
             Console.WriteLine(c);
+            Console.WriteLine("Вектор v = ");
             Console.WriteLine(v);
+            Console.WriteLine("Вектор b = ");
             Console.WriteLine(b);
             Vector d = Vector.Subtraction(q, c);
             Console.WriteLine(c);
@@ -33,7 +38,7 @@ namespace Vectors
             Console.WriteLine(scalar);
             Console.WriteLine(v);
             Console.WriteLine(c);
-            v.Adition(d);
+            v.Addition(d);
             Console.WriteLine(v);
             Console.WriteLine(v.GetSize());
             Console.WriteLine(v.GetComponentByIndex(3));
