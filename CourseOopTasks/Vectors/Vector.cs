@@ -106,7 +106,7 @@ namespace Vectors
         {
             double intermediateValue = 0;
 
-            foreach (int e in coordinates)
+            foreach (double e in coordinates)
             {
                 intermediateValue += Math.Pow(e, 2);
             }
