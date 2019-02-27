@@ -41,11 +41,13 @@ namespace Vectors
             v.Addition(d);
             Console.WriteLine(v);
             Console.WriteLine(v.GetSize());
+            Console.WriteLine(v.GetLength());
             Console.WriteLine(v.GetComponentByIndex(3));
             v.SetComponentByIndex(3,12);
             Console.WriteLine(v);
-            v.GetReverse();
+            v.Reverse();
             Console.WriteLine(v);
+            Console.WriteLine(v.GetHashCode());
         }
     }
 }

@@ -97,12 +97,9 @@ namespace Vectors
             }
         }
 
-        public void GetReverse()
+        public void Reverse()
         {
-            for (int i = 0; i < GetSize(); i++)
-            {
-                coordinates[i] = coordinates[i] * -1;
-            }
+            MultiplicationOnScalar(-1);
         }
 
         public double GetLength()
@@ -111,7 +108,7 @@ namespace Vectors
 
             foreach (int e in coordinates)
             {
-                intermediateValue += Math.Pow(coordinates[e], 2);
+                intermediateValue += Math.Pow(e, 2);
             }
 
             return Math.Sqrt(intermediateValue);
@@ -121,7 +118,7 @@ namespace Vectors
         {
             if (index < 0 || index >= GetSize())
             {
-                throw new ArgumentOutOfRangeException("Выход за размеры вектора!!!");
+                throw new IndexOutOfRangeException("Выход за размеры вектора!!!");
             }
 
             return coordinates[index];
@@ -131,7 +128,7 @@ namespace Vectors
         {
             if (index < 0 || index >= GetSize())
             {
-                throw new ArgumentOutOfRangeException("Выход за размеры вектора!!!");
+                throw new IndexOutOfRangeException("Выход за размеры вектора!!!");
             }
 
             coordinates[index] = newValue;
@@ -173,9 +170,9 @@ namespace Vectors
             int hash = 1;
             hash = prime * hash + GetSize();
 
-            foreach (int e in coordinates)
+            foreach (double e in coordinates)
             {
-                hash += prime * hash + coordinates[e].GetHashCode();
+                hash += prime * hash + e.GetHashCode();
             }
 
             return hash;
@@ -197,9 +194,10 @@ namespace Vectors
 
         public static double ScalarProduct(Vector vector1, Vector vector2)
         {
+            int min = Math.Min(vector1.GetSize(), vector2.GetSize());
             double scalar = 0;
 
-            for (int i = 0; i < Math.Min(vector1.GetSize(), vector2.GetSize()); i++)
+            for (int i = 0; i < min; i++)
             {
                 scalar += vector1.coordinates[i] * vector2.coordinates[i];
             }
