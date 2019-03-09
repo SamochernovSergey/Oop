@@ -36,14 +36,20 @@ namespace Matrices
             Vector[] x = new Vector[7] { v1, v2, v3, v4, v5, v3, v3 };
             Matrix d = new Matrix(x);
             Console.WriteLine(d);
-            Console.WriteLine(d.GetHeyght());
-            Console.WriteLine(d.GetWidth());
-            Console.WriteLine(d.GetVectorByIndex(0));
-            d.SetVectorByIndex(2, v5);
+            Console.WriteLine(d.GetColumns());
+            Console.WriteLine(d.GetRows());
+            Console.WriteLine("GetVectorByIndex  1");
+            Console.WriteLine(d.GetRowByIndex(1));
+            d.SetRowByIndex(2, v5);
             Console.WriteLine(d);
-            Console.WriteLine(d.GetColumnByIndex(0));
-            d.Trans();
+            Console.WriteLine("GetColumnByIndex  2");
+            Console.WriteLine(d.GetColumnByIndex(2));
+            Console.WriteLine("оригинальная матрица");
             Console.WriteLine(d);
+            d.Transpose();
+            Console.WriteLine("перевернутая матрица");
+            Console.WriteLine(d);
+            /*Console.WriteLine("Умножение на скаляр 2");
             d.MultiplicationOnScalar(2);
             Console.WriteLine(d);
             double[,] f = new double[,]
@@ -53,11 +59,15 @@ namespace Matrices
              {-6, 7, 1, -1 } };
             Matrix g = new Matrix(f);
             Console.WriteLine("Определитель матрицы = ");
-            Console.WriteLine(g.GetDeterminant());
+            Console.WriteLine(g.GetDeterminant());            
+            double[] l = new double[] { 2, 3, -1, 4 };
+            Vector r = new Vector(l);            
+            Console.WriteLine("MultiplicationOnVector");
+            Console.WriteLine("матрица");
             Console.WriteLine(g);
-            double[] l = new double[] { 2, 2, 2, 2 };
-            Vector r = new Vector(l);
+            Console.WriteLine("вектор");
             Console.WriteLine(r);
+            Console.WriteLine("Результат");
             Console.WriteLine(g.MultiplicationOnVector(r));
 
             double[,] mu1 = new double[,]
@@ -69,8 +79,11 @@ namespace Matrices
               {3, 1},
               {1, 5} };            
             Matrix mul1 = new Matrix(mu1);
-            Matrix mul2 = new Matrix(mu2);            
-            Console.WriteLine(Matrix.Multi(mul1, mul2));
+            Matrix mul2 = new Matrix(mu2);
+            Console.WriteLine("Умножение матриц");
+            Console.WriteLine("матрица 1 {0}", mul1);
+            Console.WriteLine("матрица 2 {0}", mul2);
+            Console.WriteLine(Matrix.Multiplication(mul1, mul2));*/
         }
     }
 }
