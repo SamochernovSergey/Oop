@@ -12,8 +12,10 @@ namespace Matrices
         static void Main(string[] args)
         {
             Matrix a = new Matrix(3, 5);
+            Console.WriteLine("a");
             Console.WriteLine(a);
             Matrix b = new Matrix(a);
+            Console.WriteLine("b");
             Console.WriteLine(b);
             double[,] z = new double[,]
             { {1, 2, 3, 4, 5, 6, 7},
@@ -22,6 +24,7 @@ namespace Matrices
               {1, 2, 3, 8, 9, 7, 6},
               {2, 3, 4, 5, 6, 7, 1} };
             Matrix c = new Matrix(z);
+            Console.WriteLine("c");
             Console.WriteLine(c);
             double[] p = { 1, 2, 3, 4, 5, 6, 7 };
             Vector v1 = new Vector(4, p);
@@ -33,34 +36,39 @@ namespace Matrices
             Vector v4 = new Vector(y);
             double[] t = { 2, 3, 4, 5, 6, 7, 1 };
             Vector v5 = new Vector(t);
-            Vector[] x = new Vector[7] { v1, v2, v3, v4, v5, v3, v3 };
+            Vector[] x = new Vector[6] { v1, v2, v3, v4, v3, v3 };
             Matrix d = new Matrix(x);
+            Console.WriteLine("d");
             Console.WriteLine(d);
-            Console.WriteLine(d.GetColumns());
-            Console.WriteLine(d.GetRows());
-            Console.WriteLine("GetVectorByIndex  1");
-            Console.WriteLine(d.GetRowByIndex(1));
-            d.SetRowByIndex(2, v5);
+            Console.WriteLine("d.GetColumnsNumber()");
+            Console.WriteLine(d.GetColumnsNumber());
+            Console.WriteLine("d.GetRowsNumber()");
+            Console.WriteLine(d.GetRowsNumber());
+            Console.WriteLine("GetVectorByIndex  5");
+            Console.WriteLine(d.GetRowByIndex(5));
+            d.SetRowByIndex(5, v5);
             Console.WriteLine(d);
-            Console.WriteLine("GetColumnByIndex  2");
-            Console.WriteLine(d.GetColumnByIndex(2));
+            Console.WriteLine("GetColumnByIndex  6");
+            Console.WriteLine(d.GetColumnByIndex(6));
             Console.WriteLine("оригинальная матрица");
             Console.WriteLine(d);
             d.Transpose();
             Console.WriteLine("перевернутая матрица");
             Console.WriteLine(d);
-            /*Console.WriteLine("Умножение на скаляр 2");
+            Console.WriteLine("Умножение на скаляр 2");
             d.MultiplicationOnScalar(2);
             Console.WriteLine(d);
             double[,] f = new double[,]
-            {{2, -1, 3, 2},
-             {3, 1, 7, 0 },
-             {-4, -1, 2, 1},
-             {-6, 7, 1, -1 } };
+            {{2, -1, 3, 2, 0},
+             {3, 1, 7, 0, 1},
+             {-4, -1, 2, 1, 0},
+             {-6, 7, 1, -1, 1},
+             {-3, -1, 2, 8, 0} };
             Matrix g = new Matrix(f);
-            Console.WriteLine("Определитель матрицы = ");
-            Console.WriteLine(g.GetDeterminant());            
-            double[] l = new double[] { 2, 3, -1, 4 };
+            Console.WriteLine("Определитель матрицы");
+            Console.WriteLine(g);
+            Console.WriteLine(" = {0}" ,g.GetDeterminant());            
+            double[] l = new double[] { 2, 3, -1, 4, 9 };
             Vector r = new Vector(l);            
             Console.WriteLine("MultiplicationOnVector");
             Console.WriteLine("матрица");
@@ -69,11 +77,9 @@ namespace Matrices
             Console.WriteLine(r);
             Console.WriteLine("Результат");
             Console.WriteLine(g.MultiplicationOnVector(r));
-
             double[,] mu1 = new double[,]
             { {1, 2, 2},
               {3, 1, 1} };
-
             double[,] mu2 = new double[,]
             { {4, 2},
               {3, 1},
@@ -83,7 +89,7 @@ namespace Matrices
             Console.WriteLine("Умножение матриц");
             Console.WriteLine("матрица 1 {0}", mul1);
             Console.WriteLine("матрица 2 {0}", mul2);
-            Console.WriteLine(Matrix.Multiplication(mul1, mul2));*/
+            Console.WriteLine(Matrix.Multiplication(mul1, mul2));
         }
     }
 }
