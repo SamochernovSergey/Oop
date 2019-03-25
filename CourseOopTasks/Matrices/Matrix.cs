@@ -87,7 +87,7 @@ namespace Matrices
         {
             return rows.Length;
         }
-        
+
         public int GetColumnsNumber()
         {
             return rows[0].GetSize();
@@ -163,39 +163,9 @@ namespace Matrices
 
             int matrixDimension = GetRowsNumber();
 
-            Matrix GetMinor(int rows, int columns)
-            {
-                Matrix resultMinor = new Matrix(matrixDimension - 1, matrixDimension - 1);
-                int newRows = 0;
-
-                for (int i = 0; i < matrixDimension; i++)
-                {
-                    if (i == rows)
-                    {
-                        continue;
-                    }
-
-                    int newColumns = 0;
-
-                    for (int j = 0; j < matrixDimension; j++)
-                    {
-                        if (j == columns)
-                        {
-                            continue;
-                        }
-                        resultMinor.rows[newRows].SetComponentByIndex(newColumns, this.rows[i].GetComponentByIndex(j));
-                        newColumns++;
-                    }
-
-                    newRows++;
-                }
-
-                return resultMinor;
-            }
-
             if (matrixDimension == 1)
             {
-                return GetRowByIndex(0).GetComponentByIndex(0);
+                return rows[0].GetComponentByIndex(0);
             }
             else if (matrixDimension == 2)
             {
@@ -213,6 +183,37 @@ namespace Matrices
 
                 return result;
             }
+        }
+
+        private Matrix GetMinor(int rows, int columns)
+        {
+            int matrixDimension = GetRowsNumber();
+            Matrix resultMinor = new Matrix(matrixDimension - 1, matrixDimension - 1);
+            int newRows = 0;
+
+            for (int i = 0; i < matrixDimension; i++)
+            {
+                if (i == rows)
+                {
+                    continue;
+                }
+
+                int newColumns = 0;
+
+                for (int j = 0; j < matrixDimension; j++)
+                {
+                    if (j == columns)
+                    {
+                        continue;
+                    }
+                    resultMinor.rows[newRows].SetComponentByIndex(newColumns, this.rows[i].GetComponentByIndex(j));
+                    newColumns++;
+                }
+
+                newRows++;
+            }
+
+            return resultMinor;
         }
 
         public override string ToString()
@@ -237,7 +238,7 @@ namespace Matrices
                 throw new ArgumentException("Не подходящий размер вектора");
             }
 
-            Vector result = new Vector(GetColumnsNumber());
+            Vector result = new Vector(GetRowsNumber());
 
             for (int i = 0; i < GetRowsNumber(); i++)
             {
@@ -306,12 +307,12 @@ namespace Matrices
 
         public static Matrix Multiplication(Matrix matrix1, Matrix matrix2)
         {
-            if (matrix1.GetRowsNumber() != matrix2.GetColumnsNumber())
+            if (matrix1.GetColumnsNumber() != matrix2.GetRowsNumber())
             {
                 throw new ArgumentException("Матрицы не подходящего размера");
             }
 
-            Matrix matricesMultiplication = new Matrix(matrix1.GetColumnsNumber(), matrix2.GetRowsNumber());
+            Matrix matricesMultiplication = new Matrix(matrix1.GetRowsNumber(), matrix2.GetColumnsNumber());
 
             for (int i = 0; i < matrix1.GetRowsNumber(); i++)
             {
