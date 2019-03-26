@@ -62,6 +62,24 @@ namespace Lambda
 
             Console.WriteLine("Список имён людей c возрастом старше 20 лет и моложе 45 лет отсортированных в порядке убывания возраста");
             Console.WriteLine(string.Join(",", peoples));
+
+            Console.WriteLine("Введите колличество элементов");
+            int digit = Convert.ToInt32(Console.ReadLine());
+
+            IEnumerable<double> GetSqrt()
+            {
+                int i = 0;
+                while (i != digit)
+                {
+                    yield return Math.Sqrt(i);
+                    ++i;
+                }
+            }
+            
+            foreach (double n in GetSqrt())
+            {
+                Console.WriteLine(n);
+            }
         }
     }
 }
