@@ -184,7 +184,7 @@ namespace Matrices
                 return result;
             }
         }
-
+        
         private Matrix GetMinor(int rows, int columns)
         {
             int matrixDimension = GetRowsNumber();
