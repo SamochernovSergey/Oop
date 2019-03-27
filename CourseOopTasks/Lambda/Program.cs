@@ -29,56 +29,64 @@ namespace Lambda
             Console.WriteLine(string.Join(",", persons));
 
             List<string> unicalNamesString = persons
-                                            .Select(p => p.Name)
-                                            .Distinct().ToList();
+                .Select(p => p.Name)
+                .Distinct()
+                .ToList();
 
             Console.WriteLine("Список уникальных имён: ");
             Console.WriteLine("Имена:" + string.Join(",", unicalNamesString));
 
-            List<Person> youngPeoples = persons
-                                      .Where(p => p.Age < 18)
-                                      .ToList();
+            List<Person> youngPeople = persons
+                .Where(p => p.Age < 18)
+                .ToList();
 
             Console.WriteLine("Список людей младше 18 лет");
-            Console.WriteLine(string.Join(",", youngPeoples));
+            Console.WriteLine(string.Join(",", youngPeople));
 
-            double youngPeoplesAverage = youngPeoples.Select(p => p.Age).Average();
+            double youngPeoplesAverage = youngPeople
+                .Select(p => p.Age)
+                .Average();
+
             Console.WriteLine("Средний возраст = {0}", youngPeoplesAverage);
 
-            Dictionary<string, double> personsByAge = persons.GroupBy(p => p.Name).ToDictionary(x => x.Key, x => x.Select(p => p.Age).Average());
-            Console.WriteLine("Словарь содержит: ");
-            ICollection<string> keys = personsByAge.Keys;
+            Dictionary<string, double> personsByAge = persons
+                .GroupBy(p => p.Name)
+                .ToDictionary(x => x.Key, x => x
+                .Average(p => p.Age));
 
-            foreach (string e in keys)
+            Console.WriteLine("Словарь содержит: ");
+
+            foreach (var e in personsByAge)
             {
-                Console.WriteLine("Имя {0}  Средний возраст  {1}", e, personsByAge[e]);
+                Console.WriteLine(e);
             }
 
-            List<string> peoples = persons
-                         .Where(p => p.Age > 20 && p.Age < 45)
-                         .OrderByDescending(p => p.Age)
-                         .Select(p => p.Name)
-                         .ToList();
+            List<string> people = persons
+                .Where(p => p.Age > 20 && p.Age < 45)
+                .OrderByDescending(p => p.Age)
+                .Select(p => p.Name)
+                .ToList();
 
             Console.WriteLine("Список имён людей c возрастом старше 20 лет и моложе 45 лет отсортированных в порядке убывания возраста");
-            Console.WriteLine(string.Join(",", peoples));
+            Console.WriteLine(string.Join(",", people));
 
             Console.WriteLine("Введите колличество элементов");
+
             int digit = Convert.ToInt32(Console.ReadLine());
 
-            IEnumerable<double> GetSqrt()
-            {
-                int i = 0;
-                while (i != digit)
-                {
-                    yield return Math.Sqrt(i);
-                    ++i;
-                }
-            }
-            
-            foreach (double n in GetSqrt())
+            foreach (double n in GetSqrt().Take(digit))
             {
                 Console.WriteLine(n);
+            }
+        }
+
+        public static IEnumerable<double> GetSqrt()
+        {
+            int i = 0;
+            while (true)
+            {
+                yield return Math.Sqrt(i);
+                ++i;
             }
         }
     }

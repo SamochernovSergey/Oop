@@ -25,6 +25,7 @@ namespace Lambda
             Name = name;
             Age = age;
         }
+
         public override string ToString()
         {
             return string.Format("Имя :" + Name + " " + "Возраст :" + Age);
