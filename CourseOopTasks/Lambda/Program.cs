@@ -44,15 +44,13 @@ namespace Lambda
             Console.WriteLine(string.Join(",", youngPeople));
 
             double youngPeoplesAverage = youngPeople
-                .Select(p => p.Age)
-                .Average();
+               .Average(p => p.Age);
 
             Console.WriteLine("Средний возраст = {0}", youngPeoplesAverage);
 
             Dictionary<string, double> personsByAge = persons
                 .GroupBy(p => p.Name)
-                .ToDictionary(x => x.Key, x => x
-                .Average(p => p.Age));
+                .ToDictionary(x => x.Key, x => x.Average(p => p.Age));
 
             Console.WriteLine("Словарь содержит: ");
 
