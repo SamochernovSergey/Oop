@@ -7,19 +7,20 @@ namespace ArrayList
 {
     class List<T> : IList<T>
     {
-        private T[] array = new T[10];
-
+        private T[] array;
         private int length;
+        private int version;
 
         public List()
-        {             
+        {
+            array = new T[10];
         }
 
         public List(T[] array)
-        {            
+        {
             this.array = new T[array.Length + 5];
             Array.Copy(array, this.array, array.Length);
-            length = array.Length;            
+            length = array.Length;
         }
 
         public List(int capacity)
@@ -40,17 +41,18 @@ namespace ArrayList
                     throw new ArgumentOutOfRangeException("Capacity < Count");
                 }
 
-                T[] array = this.array;
-                this.array = new T[value];
-                Array.Copy(array, this.array, length);                                
+                if (value == array.Length)
+                {
+                    return;
+                }
+
+                Array.Resize(ref array, value);
             }
         }
 
         private void IncreaseCapacity()
         {
-            T[] old = array;
-            array = new T[old.Length * 2];
-            Array.Copy(old, 0, array, 0, old.Length);
+            Array.Resize(ref array, array.Length * 2);
         }
 
         private void EnsureCapacity()
@@ -62,9 +64,8 @@ namespace ArrayList
         }
 
         public void TrimExcess()
-
         {
-            if (Capacity * 0.1 > length)
+            if (Capacity * 0.9 > length)
             {
                 Array.Resize(ref array, length);
             }
@@ -89,6 +90,7 @@ namespace ArrayList
                 }
 
                 array[index] = value;
+                ++version;
             }
         }
 
@@ -100,29 +102,29 @@ namespace ArrayList
             }
         }
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        public bool IsReadOnly => false;
 
         public void Add(T obj)
         {
             EnsureCapacity();
             array[length] = obj;
             ++length;
+            ++version;
         }
 
         public void Clear()
-        {            
-            array = new T[10];
-            length = 0;
+        {
+            if (length > 0)
+            {
+                array = new T[10];
+                length = 0;
+                ++version;
+            }
         }
 
         public bool Contains(T item)
         {
-            if (IndexOf(item) != -1)
-            {
-                return true;
-            }
-
-            return false;
+            return IndexOf(item) != -1;
         }
 
         public void CopyTo(T[] array, int arrayIndex)
@@ -138,18 +140,23 @@ namespace ArrayList
             }
 
             int j = arrayIndex;
-            foreach (T e in this.array)
+            for (int i = 0; i < length; i++)
             {
-                array[j] = e;
+                array[j] = this.array[i];
                 j++;
             }
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            for(int i = 0; i < length; i++)
+            int trueVersion = version;
+            for (int i = 0; i < length; i++)
             {
                 yield return array[i];
+                if (trueVersion != version)
+                {
+                    throw new InvalidOperationException("don't change collection when Enumirator is working!!!");
+                }
             }
         }
 
@@ -174,52 +181,50 @@ namespace ArrayList
             }
 
             EnsureCapacity();
+            Array.Copy(array, index, array, index + 1, length - index + 1);
+            array[index] = item;
             ++length;
-
-            for (int i = length - 1; i > index; i--)
-            {
-                array[i] = array[i - 1];
-            }
-            
-            array[index] = item;            
+            ++version;
         }
 
         public bool Remove(T item)
         {
-            if (IndexOf(item) != -1)
+            int index = IndexOf(item);
+            if (index == -1)
             {
-                RemoveAt(IndexOf(item));
-                return true;
+                return false;
             }
 
-            return false;
+            RemoveAt(index);
+            return true;
         }
 
         public void RemoveAt(int index)
         {
-            if (index < 0 || index > length - 1)
+            if (index < 0 || index >= length)
             {
                 throw new IndexOutOfRangeException("Argument Out Of Range");
             }
 
             Array.Copy(array, index + 1, array, index, length - index - 1);
             --length;
+            ++version;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return GetEnumerator();
         }
 
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < length; i++)
             {
-                stringBuilder.Append(array[i]).Append(";").Append(Environment.NewLine);                
+                stringBuilder.Append(array[i]).Append(";").AppendLine();
             }
 
-            stringBuilder.Append("Count = ").Append(Count).Append(Environment.NewLine);
+            stringBuilder.Append("Count = ").Append(Count).AppendLine();
             stringBuilder.Append("Capacity = ").Append(Capacity);
 
             return stringBuilder.ToString();
