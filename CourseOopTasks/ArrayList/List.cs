@@ -79,6 +79,7 @@ namespace ArrayList
                 {
                     throw new IndexOutOfRangeException("Argument Out Of Range");
                 }
+
                 return array[index];
             }
 
@@ -140,6 +141,7 @@ namespace ArrayList
             }
 
             int j = arrayIndex;
+
             for (int i = 0; i < length; i++)
             {
                 array[j] = this.array[i];
@@ -150,13 +152,15 @@ namespace ArrayList
         public IEnumerator<T> GetEnumerator()
         {
             int trueVersion = version;
+
             for (int i = 0; i < length; i++)
             {
-                yield return array[i];
                 if (trueVersion != version)
                 {
                     throw new InvalidOperationException("don't change collection when Enumirator is working!!!");
                 }
+
+                yield return array[i];                
             }
         }
 
@@ -190,12 +194,14 @@ namespace ArrayList
         public bool Remove(T item)
         {
             int index = IndexOf(item);
+
             if (index == -1)
             {
                 return false;
             }
 
             RemoveAt(index);
+
             return true;
         }
 
