@@ -8,7 +8,6 @@ namespace ArrayList
     class List<T> : IList<T>
     {
         private T[] array;
-        private int length;
         private int version;
 
         public List()
@@ -20,7 +19,7 @@ namespace ArrayList
         {
             this.array = new T[array.Length + 5];
             Array.Copy(array, this.array, array.Length);
-            length = array.Length;
+            Count = array.Length;
         }
 
         public List(int capacity)
@@ -36,7 +35,7 @@ namespace ArrayList
             }
             set
             {
-                if (value < length)
+                if (value < Count)
                 {
                     throw new ArgumentOutOfRangeException("Capacity < Count");
                 }
@@ -57,7 +56,7 @@ namespace ArrayList
 
         private void EnsureCapacity()
         {
-            if (length >= array.Length)
+            if (Count >= array.Length)
             {
                 IncreaseCapacity();
             }
@@ -65,9 +64,9 @@ namespace ArrayList
 
         public void TrimExcess()
         {
-            if (Capacity * 0.9 > length)
+            if (Capacity * 0.9 > Count)
             {
-                Array.Resize(ref array, length);
+                Array.Resize(ref array, Count);
             }
         }
 
@@ -75,7 +74,7 @@ namespace ArrayList
         {
             get
             {
-                if (index < 0 || index >= length)
+                if (index < 0 || index >= Count)
                 {
                     throw new IndexOutOfRangeException("Argument Out Of Range");
                 }
@@ -85,7 +84,7 @@ namespace ArrayList
 
             set
             {
-                if (index < 0 || index >= length)
+                if (index < 0 || index >= Count)
                 {
                     throw new IndexOutOfRangeException("Argument Out Of Range");
                 }
@@ -97,10 +96,8 @@ namespace ArrayList
 
         public int Count
         {
-            get
-            {
-                return length;
-            }
+            get;
+            private set;
         }
 
         public bool IsReadOnly => false;
@@ -108,17 +105,17 @@ namespace ArrayList
         public void Add(T obj)
         {
             EnsureCapacity();
-            array[length] = obj;
-            ++length;
+            array[Count] = obj;
+            ++Count;
             ++version;
         }
 
         public void Clear()
         {
-            if (length > 0)
+            if (Count > 0)
             {
                 array = new T[10];
-                length = 0;
+                Count = 0;
                 ++version;
             }
         }
@@ -135,14 +132,14 @@ namespace ArrayList
                 throw new IndexOutOfRangeException("Argument Out Of Range");
             }
 
-            if (length > array.Length - arrayIndex)
+            if (Count > array.Length - arrayIndex)
             {
                 throw new ArgumentException("The size of the data is larger than the array Count");
             }
 
             int j = arrayIndex;
 
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < Count; i++)
             {
                 array[j] = this.array[i];
                 j++;
@@ -153,7 +150,7 @@ namespace ArrayList
         {
             int trueVersion = version;
 
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < Count; i++)
             {
                 if (trueVersion != version)
                 {
@@ -166,7 +163,7 @@ namespace ArrayList
 
         public int IndexOf(T item)
         {
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < Count; i++)
             {
                 if (Equals(array[i], item))
                 {
@@ -179,15 +176,15 @@ namespace ArrayList
 
         public void Insert(int index, T item)
         {
-            if (index < 0 || index > length)
+            if (index < 0 || index > Count)
             {
                 throw new IndexOutOfRangeException("Argument Out Of Range");
             }
 
             EnsureCapacity();
-            Array.Copy(array, index, array, index + 1, length - index + 1);
+            Array.Copy(array, index - 1, array, index, Count - index + 1);
             array[index] = item;
-            ++length;
+            ++Count;
             ++version;
         }
 
@@ -207,13 +204,13 @@ namespace ArrayList
 
         public void RemoveAt(int index)
         {
-            if (index < 0 || index >= length)
+            if (index < 0 || index >= Count)
             {
                 throw new IndexOutOfRangeException("Argument Out Of Range");
             }
 
-            Array.Copy(array, index + 1, array, index, length - index - 1);
-            --length;
+            Array.Copy(array, index + 1, array, index, Count - index - 1);
+            --Count;
             ++version;
         }
 
@@ -225,9 +222,9 @@ namespace ArrayList
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < Count; i++)
             {
-                stringBuilder.Append(array[i]).Append(";").AppendLine();
+                stringBuilder.Append(array[i]).AppendLine("; ");
             }
 
             stringBuilder.Append("Count = ").Append(Count).AppendLine();

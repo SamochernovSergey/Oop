@@ -29,9 +29,12 @@ namespace ArrayList
                 13,
                 14
             };
+            Console.WriteLine(myList);
+            Console.WriteLine("myList.Insert(9, 99)");
             myList.Insert(9, 99);
+            Console.WriteLine(myList);
 
-            Console.WriteLine(myList.Contains(99));
+            /*Console.WriteLine(myList.Contains(99));
             Console.WriteLine(myList.Contains(100));
             Console.WriteLine(myList);
 
@@ -81,7 +84,7 @@ namespace ArrayList
             }
 
             list2.Clear();
-            Console.WriteLine(list2);
+            Console.WriteLine(list2);*/
         }
     }
 }
