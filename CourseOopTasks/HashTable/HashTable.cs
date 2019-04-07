@@ -19,11 +19,20 @@ namespace HashTable
 
         public HashTable(int capacity)
         {
+            if(capacity <= 0)
+            {
+                throw new IndexOutOfRangeException("Argument Out Of Range");
+            }
+
             table = new List<T>[capacity];
         }
 
         private int GetHashIndex(T item)
         {
+            if (item == null)
+            {
+                return Capacity - 1;
+            }
             return Math.Abs(item.GetHashCode() % table.Length);
         }
 
@@ -50,11 +59,6 @@ namespace HashTable
             if (table[index] == null)
             {
                 table[index] = new List<T>();
-            }
-
-            if (table[index].Contains(item))
-            {
-                return;
             }
 
             table[index].Add(item);
@@ -91,16 +95,15 @@ namespace HashTable
                 throw new IndexOutOfRangeException("Argument Out Of Range");
             }
 
-            for (int i = 0; i < table.Length; i++)
-            {                
-                if (table[i] != null)
-                {
-                    for (int j = 0; j < table[i].Count; j++)
-                    {                        
-                        array[arrayIndex] = table[i].ElementAt(j);
-                        arrayIndex++;
-                    }
-                }
+            if (Count > array.Length - arrayIndex)
+            {
+                throw new ArgumentException("The size of the data is larger than the array Count");
+            }
+
+            foreach (T e in this)
+            {
+                array[arrayIndex] = e;
+                arrayIndex++;
             }
         }
 
@@ -108,18 +111,18 @@ namespace HashTable
         {
             int trueVersion = version;
 
-            for (int i = 0; i < table.Length; i++)
+            foreach(List<T> list in table)
             {
-                if (table[i] != null)
+                if (list != null)
                 {
-                    for (int j = 0; j < table[i].Count; j++)
+                    foreach(T e in list)
                     {
                         if (trueVersion != version)
                         {
                             throw new InvalidOperationException("don't change collection when Enumirator is working!!!");
                         }
 
-                        yield return table[i].ElementAt(j);
+                        yield return e;
                     }
                 }
             }
@@ -129,11 +132,21 @@ namespace HashTable
         {
             int index = GetHashIndex(item);
 
+            if (table[index] == null)
+            {
+                return false;
+            }
+
             if (table[index].Contains(item))
             {
-                table[index] = null;
+                table[index].Remove(item);
                 --Count;
                 ++version;
+
+                if (table[index].Count() == 0)
+                {
+                    table[index] = null;
+                }
 
                 return true;
             }
@@ -152,16 +165,20 @@ namespace HashTable
 
             for (int i = 0; i < table.Length; i++)
             {
-                stringBuilder.Append("array[").Append(String.Format("{0:d2}", i)).Append("]").Append(" = ");
+                stringBuilder.Append("array[").AppendFormat("{0:d2}", i).Append("] = ");
 
                 if (table[i] == null)
                 {
-                    stringBuilder.Append("null").AppendLine("; ");
+                    stringBuilder.Append("Empty").AppendLine("; ");
                 }
                 else
                 {
                     for (int j = 0; j < table[i].Count; j++)
                     {
+                        if (table[i].ElementAt(j) == null)
+                        {
+                            stringBuilder.Append("null");
+                        }
                         stringBuilder.Append((table[i].ElementAt(j))).Append(", ");
                     }
 
@@ -169,8 +186,9 @@ namespace HashTable
                     stringBuilder.AppendLine("; ");
                 }
             }
-            stringBuilder.Append("Count = ").Append(Count).AppendLine();
-            stringBuilder.Append("Capacity = ").Append(Capacity);
+
+            stringBuilder.AppendLine().Append("Count = ").Append(Count).AppendLine();
+            stringBuilder.Append("Capacity = ").Append(Capacity).AppendLine();
 
             return stringBuilder.ToString();
         }

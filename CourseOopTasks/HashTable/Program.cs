@@ -23,7 +23,7 @@ namespace HashTable
             };
 
             table.Remove(88);
-            table.Add(55);
+            table.Add(55);            
             Console.WriteLine(table);
 
             foreach (var e in table)
@@ -32,17 +32,14 @@ namespace HashTable
             }
 
             Console.WriteLine();
+            
+            HashTable<string> table2 = new HashTable<string>(10);
+            Console.WriteLine(table2);
+            table2.Add(null);
+            Console.WriteLine(table2);
+            table2.Remove(null);
+            Console.WriteLine(table2);
 
-            int[] p = new int[20];
-
-            table.CopyTo(p, 9);
-
-            Console.WriteLine("CopyTo");
-
-            foreach (int e in p)
-            {
-                Console.WriteLine(e);
-            }
-        }
+        }        
     }
 }
