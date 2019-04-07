@@ -18,10 +18,12 @@ namespace HashTable
                 88,
                 44,
                 55,
-                55
+                77,
+                99
             };
 
             table.Remove(88);
+            table.Add(55);
             Console.WriteLine(table);
 
             foreach (var e in table)

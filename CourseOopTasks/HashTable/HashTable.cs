@@ -27,12 +27,18 @@ namespace HashTable
             return Math.Abs(item.GetHashCode() % table.Length);
         }
 
-        public int Count
+        public int Capacity
         {
             get
             {
                 return table.Length;
             }
+        }
+
+        public int Count
+        {
+            get;
+            private set;
         }
 
         public bool IsReadOnly => false;
@@ -52,14 +58,16 @@ namespace HashTable
             }
 
             table[index].Add(item);
+            ++Count;
             ++version;
         }
 
         public void Clear()
         {
-            if (table.Any())
+            if (Count != 0)
             {
-                table = new List<T>[50];
+                table = new List<T>[Capacity];
+                Count = 0;
                 ++version;
             }
         }
@@ -124,6 +132,7 @@ namespace HashTable
             if (table[index].Contains(item))
             {
                 table[index] = null;
+                --Count;
                 ++version;
 
                 return true;
@@ -161,6 +170,7 @@ namespace HashTable
                 }
             }
             stringBuilder.Append("Count = ").Append(Count).AppendLine();
+            stringBuilder.Append("Capacity = ").Append(Capacity);
 
             return stringBuilder.ToString();
         }
