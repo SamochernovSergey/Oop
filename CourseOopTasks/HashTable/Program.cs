@@ -36,8 +36,9 @@ namespace HashTable
             HashTable<string> table2 = new HashTable<string>(10);
             Console.WriteLine(table2);
             table2.Add(null);
+            table2.Add(null);
             Console.WriteLine(table2);
-            table2.Remove(null);
+            table2.Remove(null);            
             Console.WriteLine(table2);
 
         }        

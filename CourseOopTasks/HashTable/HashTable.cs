@@ -33,7 +33,7 @@ namespace HashTable
             {
                 return Capacity - 1;
             }
-            return Math.Abs(item.GetHashCode() % table.Length);
+            return Math.Abs(item.GetHashCode() % table.Length - 1);
         }
 
         public int Capacity
@@ -169,7 +169,7 @@ namespace HashTable
 
                 if (table[i] == null)
                 {
-                    stringBuilder.Append("Empty").AppendLine("; ");
+                    stringBuilder.AppendLine("Empty; ");
                 }
                 else
                 {
@@ -182,13 +182,11 @@ namespace HashTable
                         stringBuilder.Append((table[i].ElementAt(j))).Append(", ");
                     }
 
-                    stringBuilder.Remove(stringBuilder.Length - 2, 2);
-                    stringBuilder.AppendLine("; ");
+                    stringBuilder.Remove(stringBuilder.Length - 2, 2).AppendLine("; ");                   
                 }
             }
 
-            stringBuilder.AppendLine().Append("Count = ").Append(Count).AppendLine();
-            stringBuilder.Append("Capacity = ").Append(Capacity).AppendLine();
+            stringBuilder.AppendLine().AppendLine("Count = " + Count).AppendLine("Capacity = " + Capacity);           
 
             return stringBuilder.ToString();
         }
