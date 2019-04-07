@@ -30,8 +30,8 @@ namespace ArrayList
                 14
             };
             Console.WriteLine(myList);
-            Console.WriteLine("myList.Insert(9, 99)");
-            myList.Insert(9, 99);
+            Console.WriteLine("myList.Insert(3, 99)");
+            myList.Insert(3, 99);
             Console.WriteLine(myList);
 
             /*Console.WriteLine(myList.Contains(99));

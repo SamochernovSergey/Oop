@@ -182,7 +182,7 @@ namespace ArrayList
             }
 
             EnsureCapacity();
-            Array.Copy(array, index - 1, array, index, Count - index + 1);
+            Array.Copy(array, index, array, index + 1, Count - index + 1);
             array[index] = item;
             ++Count;
             ++version;
