@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,7 @@ namespace BinaryTree
         public Tree(T item)
         {
             root = new TreeNode<T>(item);
+            ++Count;
         }
 
         public void Insert(T item)
@@ -205,16 +207,6 @@ namespace BinaryTree
                                 --Count;
                                 return true;
                             }
-                            /*if (node.left == null && node.right == null)
-                            {
-                                minLeft = node;
-                                parent.left = null;
-                                minLeft.left = root.left;
-                                minLeft.right = root.right;
-                                root = minLeft;
-                                --Count;
-                                return true;
-                            }*/
                         }
                     }
                     else
@@ -294,28 +286,11 @@ namespace BinaryTree
                                     --Count;
                                     return true;
                                 }
-                                /*if (node.left == null && node.right == null)
-                                {
-                                    if (left == true)
-                                    {
-                                        node.left = parent.left.left;
-                                        node.right = parent.left.right;
-                                        parent.left = node;
-                                    }
-                                    if (right == true)
-                                    {
-                                        node.left = parent.right.left;
-                                        node.right = parent.right.right;
-                                        parent.right = node;
-                                    }
-                                    --Count;
-                                    return true;
-                                }*/
                             }
                         }
                         else
                         {
-                            if(left == true)
+                            if (left == true)
                             {
                                 node.right.left = node.left;
                                 parent.left = node.right;
@@ -326,7 +301,7 @@ namespace BinaryTree
                                 parent.right = node.right;
                             }
 
-                                --Count;
+                            --Count;
                             return true;
                         }
                     }
@@ -370,10 +345,96 @@ namespace BinaryTree
                         {
                             parent.right = null;
                         }
+
                         --Count;
                         return true;
 
                     }
+                }
+            }
+        }
+
+        public IEnumerable<T> StepWidth()
+        {
+            if (root == null)
+            {
+                yield break;
+            }
+
+            Queue<TreeNode<T>> queue = new Queue<TreeNode<T>>();
+            queue.Enqueue(root);
+
+            do
+            {
+                TreeNode<T> current = queue.Dequeue();
+
+                yield return current.Data;
+
+                if (current.left != null)
+                {
+                    queue.Enqueue(current.left);
+                }
+                if (current.right != null)
+                {
+                    queue.Enqueue(current.right);
+                }
+
+                --Count;
+            }
+            while (Count != 0);
+        }
+
+        public IEnumerable<T> StepDeep()
+        {
+            if (root == null)
+            {
+                yield break;
+            }
+
+            Stack<TreeNode<T>> stack = new Stack<TreeNode<T>>();
+            stack.Push(root);
+
+            do
+            {
+                TreeNode<T> current = stack.Pop();
+
+                yield return current.Data;
+
+                if (current.right != null)
+                {
+                    stack.Push(current.right);
+                }
+                if (current.left != null)
+                {
+                    stack.Push(current.left);
+                }
+
+                --Count;
+            }
+            while (Count > 0);
+        }
+
+        public IEnumerable<T> RecursiveStepDeep()
+        {
+            return RecursiveStepDeep(root);
+
+            IEnumerable<T> RecursiveStepDeep(TreeNode<T> item)
+            {
+                if (item == null)
+                {
+                    yield break;
+                }
+
+                yield return item.Data;
+
+                foreach (T e in RecursiveStepDeep(item.left))
+                {
+                    yield return e;
+                }
+
+                foreach (T e in RecursiveStepDeep(item.right))
+                {
+                    yield return e;
                 }
             }
         }
